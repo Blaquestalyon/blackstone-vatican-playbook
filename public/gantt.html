@@ -338,12 +338,12 @@ const trows = [...document.querySelectorAll('.trow')];
 const phrows = [...document.querySelectorAll('.phrow')];
 
 function recOf(tr){ return WBS[+tr.dataset.idx]; }
-function passes(t){
-  if(F.phases.size && !F.phases.has(+t.dataset.phase)) return false;
-  if(F.tags.size && !F.tags.has(t.dataset.tag)) return false;
-  if(F.kate && t.dataset.owner!=='Fund/Kate only') return false;
-  if(F.crit && t.dataset.crit!=='1') return false;
-  if(F.q){ const r=recOf(t); const hay=(r.wbs+' '+r.parent+' '+r.task+' '+(r.note||'')).toLowerCase(); if(!hay.includes(F.q)) return false; }
+function passes(tr){
+  if(F.phases.size && !F.phases.has(+tr.dataset.phase)) return false;
+  if(F.tags.size && !F.tags.has(tr.dataset.tag)) return false;
+  if(F.kate && tr.dataset.owner!=='Fund/Kate only') return false;
+  if(F.crit && tr.dataset.crit!=='1') return false;
+  if(F.q){ const r=recOf(tr); const hay=(r.wbs+' '+r.parent+' '+r.task+' '+(r.note||'')).toLowerCase(); if(!hay.includes(F.q)) return false; }
   return true;
 }
 function filterActive(){ return F.phases.size||F.tags.size||F.kate||F.crit||F.q; }
@@ -360,7 +360,7 @@ function update(){
     const pid = pr.dataset.pid;
     const kids = byPid[pid]||[];
     let match=0;
-    kids.forEach(tr=>{ if(passes(recOf(tr))) match++; });
+    kids.forEach(tr=>{ if(passes(tr)) match++; });
     const pvisible = match>0;
     pr.classList.toggle('hidden', !pvisible);
     // expansion
@@ -375,7 +375,7 @@ function update(){
       meta.textContent = active ? `${match} shown` : `${total} tasks · ${kOnly} Kate`;
     }
     kids.forEach(tr=>{
-      const ok = passes(recOf(tr));
+      const ok = passes(tr);
       tr.classList.toggle('hidden', !(pvisible && expanded && ok));
       if(pvisible && ok){ shown++; if(tr.dataset.owner==='Fund/Kate only') kate++; if(tr.dataset.crit==='1') crit++; perPhase[+tr.dataset.phase]++; }
     });
