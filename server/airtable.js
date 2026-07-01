@@ -16,8 +16,9 @@ function cfg() {
   const state   = process.env.AIRTABLE_TASK_STATE_TABLE   || 'TaskState';
   const audit   = process.env.AIRTABLE_AUDIT_LOG_TABLE    || 'AuditLog';
   const deps    = process.env.AIRTABLE_DEPENDENCIES_TABLE || 'Dependencies';
+  const actions = process.env.AIRTABLE_TASK_ACTIONS_TABLE  || 'TaskActions';
   if (!token || !baseId) throw new Error('Airtable not configured (AIRTABLE_TOKEN / AIRTABLE_BASE_ID)');
-  return { token, baseId, state, audit, deps };
+  return { token, baseId, state, audit, deps, actions };
 }
 
 async function airtableFetch(pathPart, opts = {}) {
@@ -105,4 +106,29 @@ async function listDependencies() {
   return rows;
 }
 
-module.exports = { listTaskState, upsertTaskState, appendAudit, listDependencies };
+// List every row in the TaskActions table. Returns [] gracefully if the table
+// doesn't exist yet (e.g. teammate hasn't created it via Airtable AI yet) so the
+// rest of the app still works — the playbook then renders original Actions only.
+async function listTaskActions() {
+  const { baseId, actions } = cfg();
+  const table = encodeURIComponent(actions);
+  const rows = [];
+  let offset;
+  try{
+    do {
+      const qs = new URLSearchParams({ pageSize: '100' });
+      if (offset) qs.set('offset', offset);
+      const data = await airtableFetch(`/${baseId}/${table}?${qs.toString()}`);
+      rows.push(...(data.records || []));
+      offset = data.offset;
+    } while (offset);
+  }catch(e){
+    if(String(e.message).includes('404') || String(e.message).includes('NOT_FOUND') || String(e.message).includes('Could not find')){
+      return [];
+    }
+    throw e;
+  }
+  return rows;
+}
+
+module.exports = { listTaskState, upsertTaskState, appendAudit, listDependencies, listTaskActions };

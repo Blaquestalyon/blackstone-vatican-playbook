@@ -106,7 +106,12 @@ app.post('/api/logout', (req, res) => {
 app.get('/api/me', (req, res) => {
   const s = verify(req.cookies[SESSION_COOKIE]);
   if (!s) return res.status(401).json({ error: 'not_authenticated' });
-  res.json({ name: s.name });
+  // Also expose the Airtable form URL so the client can build a prefilled link
+  // for the “Update actions” button. Empty string when not configured yet.
+  res.json({
+    name: s.name,
+    actionsFormUrl: process.env.AIRTABLE_TASK_ACTIONS_FORM_URL || ''
+  });
 });
 
 // ---------- routes: playbook data ----------
@@ -177,6 +182,37 @@ app.patch('/api/state/:wbs', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('[/api/state PATCH]', err);
     res.status(502).json({ error: 'airtable_write_failed', detail: String(err.message || err) });
+  }
+});
+
+// ---------- routes: task actions (append-only edit history, Airtable-backed) ----------
+// GET all TaskActions rows grouped by WBS, newest first. Backwards compatible:
+// returns { actions: {} } if the table doesn't exist yet.
+app.get('/api/actions', requireAuth, async (req, res) => {
+  try {
+    const rows = await airtable.listTaskActions();
+    const byWbs = {};
+    for (const r of rows) {
+      const f = r.fields || {};
+      const wbs = String(f.WBS || '').trim();
+      const actions = String(f.Actions || '');
+      if (!wbs || !actions) continue;
+      (byWbs[wbs] = byWbs[wbs] || []).push({
+        editId:      String(f['Edit ID'] || r.id || ''),
+        actions,
+        submittedBy: String(f.SubmittedBy || ''),
+        submittedAt: String(f.SubmittedAt || ''),
+        reason:      String(f.Reason || '')
+      });
+    }
+    // Sort each WBS's entries newest first by SubmittedAt (ISO strings sort lexicographically).
+    for (const k of Object.keys(byWbs)) {
+      byWbs[k].sort((a, b) => (b.submittedAt || '').localeCompare(a.submittedAt || ''));
+    }
+    res.json({ actions: byWbs });
+  } catch (err) {
+    console.error('[/api/actions GET]', err);
+    res.status(502).json({ error: 'airtable_read_failed', detail: String(err.message || err) });
   }
 });
 

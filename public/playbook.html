@@ -293,6 +293,74 @@
   .updated-by{font-size:10.5px;color:var(--muted);margin-left:8px;font-style:italic;}
   #whoami{margin-left:12px;}
   #lnkLogout{color:var(--crit);}
+  /* Editable Actions — header row (always visible when directive has an Actions section) */
+  .actions-head{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin:18px 0 4px;padding:6px 10px;background:#f8fafb;border:1px solid var(--line);
+    border-radius:8px;font-size:12px;color:var(--muted);}
+  .actions-head .lbl{font-weight:700;color:var(--ink);letter-spacing:0.3px;text-transform:uppercase;font-size:11px;}
+  .actions-head .actbtn{font-size:12px;padding:4px 10px;background:#fff;border:1px solid var(--line);
+    border-radius:6px;color:var(--p1);cursor:pointer;font-weight:600;}
+  .actions-head .actbtn:hover{background:var(--p1);color:#fff;border-color:var(--p1);}
+  /* Editable Actions — footer strip (only when at least one edit exists) */
+  .actions-foot{margin:6px 0 14px;padding:8px 12px;background:#f2f6f8;border:1px solid #dbe6ec;
+    border-radius:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .actions-foot .who{color:var(--ink);font-weight:600;}
+  .actions-foot .vc{color:var(--p1);font-weight:600;}
+  .actions-foot a{color:var(--p1);text-decoration:none;font-weight:600;cursor:pointer;}
+  .actions-foot a:hover{text-decoration:underline;}
+  .actions-foot .sep{opacity:.5;}
+  /* Original-directive disclosure */
+  .orig-actions{margin:6px 0 14px;padding:10px 12px;background:#fbfbfb;border:1px dashed var(--line);
+    border-radius:8px;font-size:13px;color:#5a5a5a;}
+  .orig-actions summary{cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:0.4px;
+    color:var(--muted);font-weight:700;padding:2px 0;user-select:none;}
+  .orig-actions summary:hover{color:var(--p1);}
+  .orig-actions[open] summary{color:var(--p1);margin-bottom:8px;}
+  .orig-actions .body{font-size:13px;line-height:1.6;color:#4a4a4a;}
+  .orig-actions .body ul,.orig-actions .body ol{margin:6px 0 4px;padding-left:20px;}
+  .orig-actions .body li{margin:0 0 4px;}
+  /* History drawer (right-side slide-in) */
+  #bvpDrawer{position:fixed;top:0;right:0;bottom:0;width:460px;max-width:92vw;background:#fff;
+    border-left:1px solid var(--line);box-shadow:-12px 0 36px rgba(0,0,0,.18);z-index:10001;
+    transform:translateX(100%);transition:transform 0.22s ease-out;
+    display:flex;flex-direction:column;}
+  #bvpDrawer.show{transform:translateX(0);}
+  #bvpDrawer .dhead{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;
+    justify-content:space-between;gap:10px;flex-shrink:0;}
+  #bvpDrawer .dhead .title{font-size:15px;font-weight:700;color:var(--ink);}
+  #bvpDrawer .dhead .sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  #bvpDrawer .dhead .close{background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;padding:0 4px;line-height:1;}
+  #bvpDrawer .dhead .close:hover{color:var(--crit);}
+  #bvpDrawer .dbody{flex:1;overflow-y:auto;padding:14px 18px 24px;}
+  #bvpDrawer .ver{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:12px;
+    background:#fbfcfd;}
+  #bvpDrawer .ver.current{border-color:var(--p1);background:#f2f8fa;}
+  #bvpDrawer .ver .vhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px;}
+  #bvpDrawer .ver .vnum{font-size:12px;font-weight:700;color:var(--p1);letter-spacing:0.3px;}
+  #bvpDrawer .ver .vnum.orig{color:var(--muted);}
+  #bvpDrawer .ver .vwhen{font-size:11px;color:var(--muted);}
+  #bvpDrawer .ver .vwho{font-size:12px;color:var(--ink);margin-bottom:6px;}
+  #bvpDrawer .ver .vreason{font-size:12px;color:#5a5a5a;font-style:italic;margin-bottom:8px;padding:4px 8px;
+    background:#fff;border-left:2px solid var(--line);border-radius:0 4px 4px 0;}
+  #bvpDrawer .ver .vexcerpt{font-size:12.5px;color:#333;line-height:1.55;
+    max-height:5.2em;overflow:hidden;position:relative;transition:max-height 0.2s ease-out;}
+  #bvpDrawer .ver .vexcerpt.expanded{max-height:none;}
+  #bvpDrawer .ver .vexcerpt.expanded::after{display:none;}
+  #bvpDrawer .ver .vexcerpt::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1.4em;
+    background:linear-gradient(to bottom,rgba(251,252,253,0),rgba(251,252,253,1));}
+  #bvpDrawer .ver.current .vexcerpt::after{background:linear-gradient(to bottom,rgba(242,248,250,0),rgba(242,248,250,1));}
+  #bvpDrawer .ver .vactions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  #bvpDrawer .ver .vactions .btn{font-size:12px;padding:4px 10px;border-radius:6px;background:#fff;
+    border:1px solid var(--line);color:var(--ink);cursor:pointer;}
+  #bvpDrawer .ver .vactions .btn:hover{background:#f2f6f8;border-color:var(--p1);color:var(--p1);}
+  #bvpDrawer .ver .vactions .btn.revert{color:var(--crit);border-color:#f2d6d6;}
+  #bvpDrawer .ver .vactions .btn.revert:hover{background:#fbeaea;color:var(--crit);border-color:var(--crit);}
+  #bvpDrawer .ver .vactions .btn.current-tag{background:#eef4f7;color:var(--p1);border-color:transparent;
+    cursor:default;font-weight:600;}
+  #bvpDrawer .empty{padding:24px 8px;text-align:center;color:var(--muted);font-size:13px;}
+  #bvpDrawerBackdrop{position:fixed;inset:0;background:rgba(20,26,34,.35);z-index:10000;
+    opacity:0;pointer-events:none;transition:opacity 0.22s ease-out;}
+  #bvpDrawerBackdrop.show{opacity:1;pointer-events:auto;}
 </style>
 
 </head>
@@ -307,6 +375,19 @@
     <div class="row"><button class="btn" id="bvpModalClose">OK</button></div>
   </div>
 </div>
+
+<div id="bvpDrawerBackdrop" aria-hidden="true"></div>
+<div id="bvpDrawer" role="dialog" aria-modal="true" aria-labelledby="bvpDrawerTitle" aria-hidden="true">
+  <div class="dhead">
+    <div>
+      <div class="title" id="bvpDrawerTitle">Actions history</div>
+      <div class="sub" id="bvpDrawerSub"></div>
+    </div>
+    <button class="close" id="bvpDrawerClose" aria-label="Close history drawer">×</button>
+  </div>
+  <div class="dbody" id="bvpDrawerBody"></div>
+</div>
+
 <header>
   <div class="htop">
     <h1 id="hTitle">Vatican Allocation Playbook</h1>
@@ -385,6 +466,17 @@
 let DB = { meta:{}, tasks:[] };
 let STATE = {};              // wbs -> {status,notes,updatedBy,updatedAt}
 let CURRENT_USER = null;
+
+/* ---------- editable Actions (Airtable TaskActions, newest-first per WBS) ----------
+   ACTIONS[wbs] = [ {editId, actions, submittedBy, submittedAt, reason}, ... ] newest first.
+   Missing entry (or empty array) = task has never been edited; render the shipped directive as-is.
+   ORIGINAL_ACTIONS[wbs] = { actions:string, hadHeader:boolean } cached from the shipped
+   directive on first render so we can revert / show "View original" without touching DB.
+   ACTIONS_FORM_URL captured from /api/me; when empty the Update-actions button is hidden.
+=========================================================================== */
+let ACTIONS = {};
+const ORIGINAL_ACTIONS = {};
+let ACTIONS_FORM_URL = '';
 
 /* ---------- dependency graph (from Airtable Dependencies table) ----------
    DEPS         : array of raw edges { wbs, predWbs, relType, note }
@@ -580,6 +672,281 @@ function mdRender(text){
   return html;
 }
 
+/* ---------- editable Actions helpers ----------
+   Directives in shipped playbook_data.json follow the pattern:
+     ...intro paragraph...
+     **Actions**
+     1. Do X.
+     2. Do Y.
+
+     **Deliverable:** ...
+     **Done when:** ...
+   The **Actions** heading is a bold-line (not a Markdown ##). 147 of 167 tasks have it;
+   20 (mostly P2.I.*) have a one-paragraph directive with no Actions section — for those
+   we insert a fresh Actions block before the first **Deliverable/**Done when heading,
+   or append at the end when no such heading exists.
+
+   Both branches leave the surrounding directive text untouched — we only swap the
+   Actions content itself. Original content is cached in ORIGINAL_ACTIONS so we can
+   render "View original" and pre-fill the revert form without needing the source JSON.
+=========================================================================== */
+
+// Regex — matches a **Actions** bold-line heading (allow **Actions:** too).
+const ACTIONS_HEADING_RE = /^\s*\*\*Actions\s*:?\s*\*\*\s*$/i;
+// Any other bold-line heading (Deliverable, Done when, Escalate, Owner, etc.).
+const BOLD_HEADING_RE   = /^\s*\*\*[A-Z][^*\n]{0,60}?\*\*/;
+// Specific headings we insert BEFORE when no Actions section exists.
+const NON_ACTIONS_HEADS_RE = /^\s*\*\*(Deliverable|Done when|Escalate|Owner|Cadence|Deadline|Success metric)\b/i;
+
+// Extract the shipped Actions block from a directive string. Returns {actions, hadHeader}.
+function extractOriginalActions(directive){
+  if(!directive) return { actions:'', hadHeader:false };
+  const lines = directive.replace(/\r/g,'').split('\n');
+  let startIdx = -1;
+  for(let i=0;i<lines.length;i++){
+    if(ACTIONS_HEADING_RE.test(lines[i])){ startIdx = i; break; }
+  }
+  if(startIdx < 0) return { actions:'', hadHeader:false };
+  let endIdx = lines.length;
+  for(let j=startIdx+1;j<lines.length;j++){
+    if(BOLD_HEADING_RE.test(lines[j]) && !ACTIONS_HEADING_RE.test(lines[j])){
+      endIdx = j; break;
+    }
+  }
+  const body = lines.slice(startIdx+1, endIdx);
+  while(body.length && /^\s*$/.test(body[0])) body.shift();
+  while(body.length && /^\s*$/.test(body[body.length-1])) body.pop();
+  return { actions: body.join('\n'), hadHeader:true };
+}
+
+// Replace (or insert) the Actions section in a directive with newActionsText.
+function replaceActionsInDirective(directive, newActionsText){
+  if(!directive) return '**Actions**\n\n' + (newActionsText || '');
+  const lines = directive.replace(/\r/g,'').split('\n');
+  let startIdx = -1;
+  for(let i=0;i<lines.length;i++){
+    if(ACTIONS_HEADING_RE.test(lines[i])){ startIdx = i; break; }
+  }
+  if(startIdx >= 0){
+    let endIdx = lines.length;
+    for(let j=startIdx+1;j<lines.length;j++){
+      if(BOLD_HEADING_RE.test(lines[j]) && !ACTIONS_HEADING_RE.test(lines[j])){
+        endIdx = j; break;
+      }
+    }
+    const before = lines.slice(0, startIdx+1);
+    const after  = lines.slice(endIdx);
+    const rebuilt = before.concat([''], (newActionsText||'').split('\n'), [''], after);
+    return rebuilt.join('\n');
+  }
+  // No **Actions** section — insert before Deliverable/etc, else append.
+  let insertIdx = -1;
+  for(let i=0;i<lines.length;i++){
+    if(NON_ACTIONS_HEADS_RE.test(lines[i])){ insertIdx = i; break; }
+  }
+  const block = ['**Actions**', ''].concat((newActionsText||'').split('\n')).concat(['']);
+  if(insertIdx < 0){
+    return lines.concat(['']).concat(block).join('\n');
+  }
+  return lines.slice(0, insertIdx).concat(block, lines.slice(insertIdx)).join('\n');
+}
+
+// Latest submitted-actions version for a WBS, or null.
+function latestActionsVersion(wbs){
+  const arr = ACTIONS[wbs];
+  return (arr && arr.length) ? arr[0] : null;
+}
+
+// Format an ISO timestamp for the footer/drawer (short, local).
+function fmtActionsTime(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  if(isNaN(d)) return iso;
+  const opts = { year:'numeric', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' };
+  try{ return d.toLocaleString(undefined, opts); }catch(e){ return d.toISOString().slice(0,16).replace('T',' '); }
+}
+
+// Build the Airtable form URL for a new edit (fresh update or revert).
+function buildActionsFormUrl(wbs, prefillActions, prefillReason){
+  if(!ACTIONS_FORM_URL) return '';
+  const nowIso = new Date().toISOString();
+  const params = new URLSearchParams();
+  params.set('prefill_WBS', wbs);
+  params.set('prefill_SubmittedBy', CURRENT_USER || '');
+  params.set('prefill_SubmittedAt', nowIso);
+  params.set('prefill_Edit ID', wbs + ' \u00b7 ' + nowIso);
+  if(prefillActions) params.set('prefill_Actions', prefillActions);
+  if(prefillReason)  params.set('prefill_Reason', prefillReason);
+  const sep = ACTIONS_FORM_URL.indexOf('?') >= 0 ? '&' : '?';
+  return ACTIONS_FORM_URL + sep + params.toString();
+}
+
+// Open the Airtable form (new tab). fromVersion==null -> fresh update; else revert.
+function openActionsForm(wbs, fromVersion){
+  if(!ACTIONS_FORM_URL){
+    alert('Editing is not configured yet.\n\nAn administrator needs to build the Actions Airtable form and set AIRTABLE_TASK_ACTIONS_FORM_URL on the server. See docs/EDITING_ACTIONS.md.');
+    return;
+  }
+  let prefillActions = '';
+  let prefillReason  = '';
+  if(fromVersion){
+    prefillActions = fromVersion.actions || '';
+    const who  = fromVersion.submittedBy || 'unknown';
+    const when = fmtActionsTime(fromVersion.submittedAt);
+    prefillReason = 'Reverting to earlier version by ' + who + (when ? ' (' + when + ')' : '') + '.';
+  }
+  const url = buildActionsFormUrl(wbs, prefillActions, prefillReason);
+  window.open(url, '_blank', 'noopener');
+}
+
+// ---------- history drawer ----------
+function openHistoryDrawer(wbs){
+  const task = DB.tasks.find(x=>x.wbs===wbs);
+  if(!task) return;
+  const versions = ACTIONS[wbs] || [];
+  const orig = ORIGINAL_ACTIONS[wbs] || extractOriginalActions(task.directive);
+  const sub = document.getElementById('bvpDrawerSub');
+  sub.textContent = wbs + ' \u00b7 ' + task.task;
+  const body = document.getElementById('bvpDrawerBody');
+  let html = '';
+  if(!versions.length){
+    html += '<div class="empty">No edits yet. The shipped Actions below are still live.</div>';
+  }
+  versions.forEach((v, idx) => {
+    const versionNum = versions.length - idx;
+    const isCurrent = (idx === 0);
+    const fullText = v.actions || '';
+    const excerpt = esc(fullText.slice(0, 600));
+    html += '<div class="ver' + (isCurrent?' current':'') + '">'
+         + '<div class="vhead"><span class="vnum">v' + versionNum + (isCurrent?' \u00b7 current':'') + '</span>'
+         + '<span class="vwhen">' + esc(fmtActionsTime(v.submittedAt)) + '</span></div>'
+         + '<div class="vwho">' + esc(v.submittedBy || 'unknown') + '</div>'
+         + (v.reason ? '<div class="vreason">' + esc(v.reason) + '</div>' : '')
+         + '<div class="vexcerpt" data-full="' + esc(fullText).replace(/"/g,'&quot;') + '">' + excerpt + (fullText.length > 600 ? '\u2026' : '') + '</div>'
+         + '<div class="vactions">'
+         +   '<button class="btn expand" type="button">Show full</button>'
+         +   (isCurrent
+               ? '<span class="btn current-tag">Live version</span>'
+               : '<button class="btn revert" type="button" data-idx="' + idx + '">Revert to this version</button>')
+         + '</div>'
+         + '</div>';
+  });
+  const origActions = orig.actions || '';
+  const origExcerpt = esc(origActions.slice(0, 600));
+  const origHasContent = orig.hadHeader && origActions.trim().length > 0;
+  html += '<div class="ver">'
+       + '<div class="vhead"><span class="vnum orig">Original \u00b7 shipped</span><span class="vwhen"></span></div>'
+       + '<div class="vwho">Blackstone Vatican Playbook baseline</div>'
+       + (origHasContent
+           ? '<div class="vexcerpt" data-full="' + esc(origActions).replace(/"/g,'&quot;') + '">' + origExcerpt + (origActions.length > 600 ? '\u2026' : '') + '</div>'
+              + '<div class="vactions">'
+              +   '<button class="btn expand" type="button">Show full</button>'
+              +   (versions.length
+                    ? '<button class="btn revert" type="button" data-idx="-1">Revert to original</button>'
+                    : '<span class="btn current-tag">Live version</span>')
+              + '</div>'
+           : '<div class="vexcerpt" style="font-style:italic;color:#7a7a7a">This task shipped without an Actions section.</div>')
+       + '</div>';
+  body.innerHTML = html;
+
+  // Wire expand + revert buttons.
+  body.querySelectorAll('.ver').forEach(verEl => {
+    const excerptEl = verEl.querySelector('.vexcerpt');
+    const expandBtn = verEl.querySelector('.btn.expand');
+    if(expandBtn && excerptEl && excerptEl.dataset.full){
+      expandBtn.onclick = () => {
+        if(excerptEl.classList.contains('expanded')){
+          excerptEl.classList.remove('expanded');
+          excerptEl.textContent = excerptEl.dataset.full.slice(0, 600) + (excerptEl.dataset.full.length > 600 ? '\u2026' : '');
+          expandBtn.textContent = 'Show full';
+        }else{
+          excerptEl.classList.add('expanded');
+          excerptEl.textContent = excerptEl.dataset.full;
+          expandBtn.textContent = 'Collapse';
+        }
+      };
+    }
+    const revertBtn = verEl.querySelector('.btn.revert');
+    if(revertBtn){
+      revertBtn.onclick = () => {
+        const idx = parseInt(revertBtn.dataset.idx, 10);
+        const fromVersion = (idx === -1)
+          ? { actions: origActions, submittedBy: 'Blackstone Vatican Playbook baseline', submittedAt: '' }
+          : versions[idx];
+        if(!fromVersion) return;
+        if(!confirm('Open the edit form pre-filled with this version\'s Actions?\n\nAn Airtable form opens in a new tab. Submitting it saves a NEW version \u2014 previous versions stay in history.')){
+          return;
+        }
+        openActionsForm(wbs, fromVersion);
+      };
+    }
+  });
+
+  document.getElementById('bvpDrawer').classList.add('show');
+  document.getElementById('bvpDrawerBackdrop').classList.add('show');
+  document.getElementById('bvpDrawer').setAttribute('aria-hidden','false');
+}
+function closeHistoryDrawer(){
+  document.getElementById('bvpDrawer').classList.remove('show');
+  document.getElementById('bvpDrawerBackdrop').classList.remove('show');
+  document.getElementById('bvpDrawer').setAttribute('aria-hidden','true');
+}
+
+
+
+/* ---------- render the directive with editable-Actions replacement ----------
+   For each task: cache the shipped Actions on first render, then if there are
+   any TaskActions edits for this WBS, swap in the latest one and append a
+   footer strip + original-actions <details> disclosure. Tasks that were
+   never edited render exactly as the shipped playbook_data.json content.
+=========================================================================== */
+function renderDirectiveHTML(t){
+  const wbs = t.wbs;
+  if(!(wbs in ORIGINAL_ACTIONS)){
+    ORIGINAL_ACTIONS[wbs] = extractOriginalActions(t.directive);
+  }
+  const orig = ORIGINAL_ACTIONS[wbs];
+  const latest = latestActionsVersion(wbs);
+  const hasActionsSection = orig.hadHeader || latest;
+  const wbsAttr = wbs.replace(/'/g,"\\'");
+  const updateBtn = ACTIONS_FORM_URL
+    ? '<button class="actbtn" onclick="openActionsForm(\'' + wbsAttr + '\', null)">\u270e Update actions</button>'
+    : '';
+  const actionsHead = hasActionsSection
+    ? '<div class="actions-head"><span class="lbl">Actions</span>' + updateBtn + '</div>'
+    : '';
+  let rendered;
+  if(latest){
+    rendered = replaceActionsInDirective(t.directive || '', latest.actions);
+  }else{
+    rendered = t.directive || '';
+  }
+  const directiveHtml = '<div class="directive">' + mdRender(rendered) + '</div>';
+  let footer = '';
+  if(latest){
+    const who   = esc(latest.submittedBy || 'unknown');
+    const when  = esc(fmtActionsTime(latest.submittedAt));
+    const vN    = (ACTIONS[wbs] || []).length;
+    const vLbl  = vN + ' version' + (vN === 1 ? '' : 's');
+    const origId = 'origActions-' + wbs;
+    const toggleOrigJs = "var d=document.getElementById('" + origId.replace(/'/g,"\\'") + "');if(d) d.open=!d.open;";
+    footer = '<div class="actions-foot">'
+           + 'Actions updated by <span class="who">' + who + '</span> \u00b7 ' + when
+           + ' <span class="sep">\u00b7</span> <span class="vc">' + vLbl + '</span>'
+           + ' <span class="sep">\u00b7</span> <a onclick="openHistoryDrawer(\'' + wbsAttr + '\')">Show history</a>'
+           + (orig.hadHeader ? ' <span class="sep">\u00b7</span> <a onclick="' + toggleOrigJs.replace(/"/g,'&quot;') + '">Toggle original</a>' : '')
+           + '</div>';
+  }
+  let original = '';
+  if(latest && orig.hadHeader && (orig.actions || '').trim().length){
+    original = '<details class="orig-actions" id="origActions-' + wbs + '">'
+             + '<summary>View original Actions (shipped with playbook)</summary>'
+             + '<div class="body">' + mdRender(orig.actions) + '</div>'
+             + '</details>';
+  }
+  return actionsHead + directiveHtml + footer + original;
+}
+
 /* ---------- list build ---------- */
 const listpane = document.getElementById("listpane");
 let CURRENT = null;
@@ -680,7 +1047,7 @@ function selectTask(id, push){
     + '<div class="sec-lab">Guideline summary</div>'
     + '<div class="summary'+(t.summary?"":" pend")+'">'+(t.summary?mdInline(t.summary):"Summary pending.")+'</div>'
     + '<div class="sec-lab">Execution directive</div>'
-    + '<div class="directive">'+mdRender(t.directive)+'</div>'
+    + renderDirectiveHTML(t)
     + '<div class="notes-wrap"><div class="sec-lab">Team working notes <span class="saved" id="savedFlag">saved ✓</span>'
       + ' <span class="updated-by" id="notesUpdatedBy">'+(st.updatedBy?'last edit: '+esc(st.updatedBy)+' · '+esc(fmtTime(st.updatedAt)):'')+'</span></div>'
       + '<textarea id="notes" placeholder="Log status, blockers, contacts, dates, who is executing…">'+esc(st.notes)+'</textarea></div>'
@@ -859,10 +1226,17 @@ document.getElementById('bvpModalClose').onclick = ()=>document.getElementById('
 document.getElementById('bvpModal').addEventListener('click', e=>{
   if(e.target.id === 'bvpModal') e.currentTarget.classList.remove('show');
 });
+
+/* history drawer: close on × button, backdrop click, or Escape */
+document.getElementById('bvpDrawerClose').onclick = closeHistoryDrawer;
+document.getElementById('bvpDrawerBackdrop').addEventListener('click', closeHistoryDrawer);
+
 document.addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     const m = document.getElementById('bvpModal');
-    if(m.classList.contains('show')) m.classList.remove('show');
+    if(m.classList.contains('show')){ m.classList.remove('show'); return; }
+    const d = document.getElementById('bvpDrawer');
+    if(d.classList.contains('show')){ closeHistoryDrawer(); return; }
   }
 });
 
@@ -887,6 +1261,8 @@ async function refreshState(){
     STATE = j.state || {};
     // Refresh dependencies too so team edits to the Dependencies table propagate live.
     try{ const d = await api('/api/dependencies'); DEPS = d.deps || []; rebuildDepIndex(); }catch(_){}
+    // Refresh editable Actions too so team edits to the TaskActions table propagate live.
+    try{ const a = await api('/api/actions'); ACTIONS = a.actions || {}; }catch(_){}
     buildList(); updateProgress();
     if(CURRENT) selectTask(CURRENT, false);
   }catch(e){ /* silent */ }
@@ -898,6 +1274,7 @@ setInterval(refreshState, 20000);
   try{
     const me = await api('/api/me');
     CURRENT_USER = me.name;
+    ACTIONS_FORM_URL = me.actionsFormUrl || '';
     document.getElementById('whoami').textContent = 'Signed in as '+me.name;
     // Load playbook first (required). State is best-effort — if Airtable is temporarily unreachable, still render the WBS.
     DB = await api('/api/playbook');
@@ -906,6 +1283,9 @@ setInterval(refreshState, 20000);
     // Dependencies are optional — empty array is a safe default when Airtable/table absent.
     try{ const depJson = await api('/api/dependencies'); DEPS = depJson.deps || []; }
     catch(e){ DEPS = []; }
+    // TaskActions are optional — empty map is safe when Airtable/table absent or no edits yet.
+    try{ const actJson = await api('/api/actions'); ACTIONS = actJson.actions || {}; }
+    catch(e){ ACTIONS = {}; }
     rebuildDepIndex();
     document.getElementById("hTitle").textContent = DB.meta.title || 'Blackstone Vatican Playbook';
     document.getElementById("hSub").textContent   = DB.meta.subtitle || '';

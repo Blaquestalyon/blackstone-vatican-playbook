@@ -1,8 +1,8 @@
 # Airtable schema — Blackstone Vatican Playbook
 
-The app uses **three Airtable tables** in a single base. Everything else (auth, the 167-task WBS, the directives) lives in the app itself and does not need Airtable.
+The app uses **four Airtable tables** in a single base. Everything else (auth, the 167-task WBS, the directives) lives in the app itself and does not need Airtable.
 
-Below are the exact prompts to paste into Airtable AI. Paste them **sequentially, one at a time**, verifying each table before moving on. After all three are built, generate a **Personal Access Token (PAT)** with `data.records:read` + `data.records:write` scopes on this base, and set these environment variables in Railway:
+Below are the exact prompts to paste into Airtable AI. Paste them **sequentially, one at a time**, verifying each table before moving on. After all four are built, generate a **Personal Access Token (PAT)** with `data.records:read` + `data.records:write` scopes on this base, and set these environment variables in Railway:
 
 ```
 AIRTABLE_TOKEN=pat...
@@ -10,6 +10,8 @@ AIRTABLE_BASE_ID=app...
 AIRTABLE_TASK_STATE_TABLE=TaskState
 AIRTABLE_AUDIT_LOG_TABLE=AuditLog
 AIRTABLE_DEPENDENCIES_TABLE=Dependencies
+AIRTABLE_TASK_ACTIONS_TABLE=TaskActions
+AIRTABLE_TASK_ACTIONS_FORM_URL=https://airtable.com/appXXX/pagYYY/form   # paste the shareable form URL after you build the form
 ```
 
 ---
@@ -85,6 +87,44 @@ Because the table is edited in Airtable, teammates with base access can add, cor
 
 ---
 
+## Prompt 4 — `TaskActions` table + edit form (paste into Airtable AI)
+
+> Create a fourth new table in this base named **TaskActions**. This table stores every edit anyone submits to the Actions section of a task in the Blackstone Vatican Playbook. It is **append-only** — every submission creates a new row, never updates one. The app treats the row with the newest `SubmittedAt` for a given `WBS` as the current version, and shows every prior submission (plus the original from the playbook) in a history drawer.
+>
+> Create the following fields, in this exact order, with these exact names, types, and options. Field names are case-sensitive.
+>
+> 1. **Edit ID** — Single line text. **This is the primary field.** Values look like `P1.A.1.2 · 2026-07-01T15:14:22.417Z`. The app writes this string on submit so each row has a unique, human-readable id. Not used programmatically for lookups.
+> 2. **WBS** — Single line text. The WBS id whose Actions this row updates. E.g. `P1.A.1.2`. The app queries the table by this field.
+> 3. **Actions** — Long text (rich text OFF). The new Actions content, in the same markdown format as the rest of the directive. May contain line breaks and lists. Up to ~20,000 characters.
+> 4. **SubmittedBy** — Single line text. Display name of the team member who submitted the edit. Prefilled by the app from the shared-passcode session.
+> 5. **SubmittedAt** — Single line text. ISO-8601 UTC timestamp string (e.g. `2026-07-01T15:14:22.417Z`) written by the app. Do NOT use Airtable's built-in Created Time — the app writes this value itself so it stays in sync with the audit log and the primary key.
+> 6. **Reason** — Single line text. Optional short reason for the edit (e.g. `counsel updated timing`, `reverting to version 1`). May be blank.
+>
+> Do not add any other fields, link fields, formula fields, `Created` or `Modified` timestamp fields, or views. Do not add a separate "Name" primary field. Do not add automations — the app does the merge/newest-wins logic itself.
+>
+> **Then create an Airtable Form on this TaskActions table** with the following configuration:
+>
+> - Form title: `Update Actions for a task`
+> - Form description: `The playbook app opens this form when a teammate clicks “Update actions” on a task. The WBS field is prefilled from the app — do not change it. Type the new Actions content in the Actions field. Optionally note why in Reason. Submit. The rest of the team will see your change within 20 seconds.`
+> - Visible fields (in this order): `WBS`, `Actions`, `Reason`, `SubmittedBy`
+> - Hidden fields: `Edit ID`, `SubmittedAt` (the app writes these via URL prefill parameters)
+> - Mark `WBS`, `Actions`, and `SubmittedBy` as required. `Reason` optional.
+> - After submit: show a confirmation page with the text `Thanks. Your update will appear in the playbook within 20 seconds. Close this tab to return.`
+> - Allow multiple submissions from the same browser (do not enable "only allow one submission per person").
+>
+> **After you create the form, copy its shareable URL (the one that starts with `https://airtable.com/app.../pag.../form`) and give it to me** — I will paste it into the Railway env var `AIRTABLE_TASK_ACTIONS_FORM_URL`. Without that URL the “Update actions” button in the app can’t open the form.
+>
+> When finished, confirm the table name is exactly `TaskActions`, the primary field is `Edit ID`, the six fields are named exactly as above, and the form exists with the field order and required-field settings described.
+
+**How the app uses this table.**
+
+- On every page load and every 20-second poll, the app fetches all rows and groups them by `WBS`, sorted by `SubmittedAt` descending.
+- For each task in the playbook, if there are any `TaskActions` rows, the newest one replaces the `**Actions**` subsection of the execution directive. The rest of the directive (Deliverable, Done when, etc.) is untouched.
+- The original Actions text (from `scripts/playbook_data.json`) is always accessible via a history drawer that lists every version, including the original, with author, timestamp, and reason. Reverting an edit is done by submitting the older content as a **new** row — nothing is ever deleted, so the audit trail stays complete.
+- If a task has zero rows in this table, the directive renders identically to today — no history UI appears.
+
+---
+
 ## What NOT to add
 
 The app deliberately does **not** need any of the following. If Airtable AI proposes them, decline:
@@ -98,7 +138,7 @@ The app deliberately does **not** need any of the following. If Airtable AI prop
 
 ## Permissions
 
-Once the three tables exist, invite each team member to the **base** at whichever role you prefer (Editor is fine; the server is the only writer). No per-table permissioning is required — the app itself doesn't check Airtable roles. Access control on the app is the shared `TEAM_PASSCODE` env var.
+Once the four tables exist, invite each team member to the **base** at whichever role you prefer (Editor is fine; the server is the only writer). No per-table permissioning is required — the app itself doesn't check Airtable roles. Access control on the app is the shared `TEAM_PASSCODE` env var.
 
 If you want teammates to browse the audit log directly in Airtable, Read-only base access is sufficient.
 
