@@ -1,14 +1,15 @@
 # Airtable schema — Blackstone Vatican Playbook
 
-The app uses **two Airtable tables** in a single base. Everything else (auth, the 167-task WBS, the directives) lives in the app itself and does not need Airtable.
+The app uses **three Airtable tables** in a single base. Everything else (auth, the 167-task WBS, the directives) lives in the app itself and does not need Airtable.
 
-Below are the exact prompts to paste into Airtable AI. It will generate the tables to spec. After it builds them, generate a **Personal Access Token (PAT)** with `data.records:read` + `data.records:write` scopes on this base, and set these environment variables in Railway:
+Below are the exact prompts to paste into Airtable AI. Paste them **sequentially, one at a time**, verifying each table before moving on. After all three are built, generate a **Personal Access Token (PAT)** with `data.records:read` + `data.records:write` scopes on this base, and set these environment variables in Railway:
 
 ```
 AIRTABLE_TOKEN=pat...
 AIRTABLE_BASE_ID=app...
 AIRTABLE_TASK_STATE_TABLE=TaskState
 AIRTABLE_AUDIT_LOG_TABLE=AuditLog
+AIRTABLE_DEPENDENCIES_TABLE=Dependencies
 ```
 
 ---
@@ -52,6 +53,38 @@ AIRTABLE_AUDIT_LOG_TABLE=AuditLog
 
 ---
 
+## Prompt 3 — `Dependencies` table (paste into Airtable AI)
+
+> Create a third new table in this base named **Dependencies**. This table stores the predecessor relationships between the 167 WBS tasks in the Blackstone Vatican Playbook. Each row is one directed edge: "task WBS cannot progress until task PredecessorWBS reaches the required state." The app reads this table on load to gate status transitions.
+>
+> Create the following fields, in this exact order, with these exact names, types, and options. Field names are case-sensitive.
+>
+> 1. **Edge** — Single line text. **This is the primary field.** Values look like `P1.A.1.2 <- P1.A.1.1 (FS)`. It's a human-readable label; not used programmatically by the app. Team members will read it in Airtable to understand the row at a glance.
+> 2. **WBS** — Single line text. The task that has the predecessor. E.g. `P1.A.1.2`.
+> 3. **PredecessorWBS** — Single line text. The task that must reach the required state first. E.g. `P1.A.1.1`.
+> 4. **RelType** — Single select. Options (exact spelling, uppercase): `FS`, `SS`, `FF`, `SF`.
+>    - `FS` = Finish-to-Start: predecessor must be Done before this task can be In progress or Done.
+>    - `SS` = Start-to-Start: predecessor must be In progress or Done before this task can be In progress or Done.
+>    - `FF` = Finish-to-Finish: predecessor must be Done before this task can be Done. (Task can still be In progress.)
+>    - `SF` = Start-to-Finish (rare): predecessor must be In progress or Done before this task can be Done.
+> 5. **Note** — Long text (rich text OFF). Optional; a free-text explanation of why this dependency exists. Not read by the app.
+>
+> Do not add any other fields, views, or automations. Do not add link fields to `TaskState`.
+>
+> When finished, confirm the table name is exactly `Dependencies`, the primary field is `Edge`, and the other fields are `WBS`, `PredecessorWBS`, `RelType`, `Note`.
+
+**Seeding the table.** After Airtable AI builds it, don't fill in rows by hand. The app ships with a starter CSV at `scripts/dependencies-starter.csv` containing one row per WBS id. Open it, add predecessors as needed, then bulk-paste into the Airtable table (Airtable → paste into the grid). See `scripts/DEPENDENCIES_HOW_TO.md` in the repo for the format.
+
+**How the app uses this table.**
+
+- On every page load and every 20-second poll, the app fetches the current dependency graph.
+- When a team member clicks a status button, the app checks whether every predecessor edge for that task is satisfied for the requested transition. If any edge is unmet, a modal appears listing the unmet prerequisites and the change is refused.
+- The default status for any task with no manual override is `to do` if either (a) today is on or after the task's `startDate`, or (b) all `FS` and `SS` predecessors are already satisfied. Otherwise the task is shown as blocked (grey placeholder) and cannot be started yet.
+
+Because the table is edited in Airtable, teammates with base access can add, correct, or remove edges without a redeploy. Changes appear in the app within ~20 seconds.
+
+---
+
 ## What NOT to add
 
 The app deliberately does **not** need any of the following. If Airtable AI proposes them, decline:
@@ -65,7 +98,7 @@ The app deliberately does **not** need any of the following. If Airtable AI prop
 
 ## Permissions
 
-Once the two tables exist, invite each team member to the **base** at whichever role you prefer (Editor is fine; the server is the only writer). No per-table permissioning is required — the app itself doesn't check Airtable roles. Access control on the app is the shared `TEAM_PASSCODE` env var.
+Once the three tables exist, invite each team member to the **base** at whichever role you prefer (Editor is fine; the server is the only writer). No per-table permissioning is required — the app itself doesn't check Airtable roles. Access control on the app is the shared `TEAM_PASSCODE` env var.
 
 If you want teammates to browse the audit log directly in Airtable, Read-only base access is sufficient.
 

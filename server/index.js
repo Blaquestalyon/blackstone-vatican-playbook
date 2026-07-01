@@ -180,6 +180,29 @@ app.patch('/api/state/:wbs', requireAuth, async (req, res) => {
   }
 });
 
+// ---------- routes: dependencies (global, Airtable-backed) ----------
+// GET all dependency edges as an array. Each edge: { wbs, predWbs, relType, note }.
+// Backwards compatible: if the Dependencies table does not exist yet, returns [].
+app.get('/api/dependencies', requireAuth, async (req, res) => {
+  try {
+    const rows = await airtable.listDependencies();
+    const deps = [];
+    for (const r of rows) {
+      const f = r.fields || {};
+      const wbs = String(f.WBS || '').trim();
+      const predWbs = String(f.PredecessorWBS || '').trim();
+      if (!wbs || !predWbs) continue;
+      const rel = String(f.RelType || 'FS').toUpperCase();
+      const relType = ['FS','SS','FF','SF'].includes(rel) ? rel : 'FS';
+      deps.push({ wbs, predWbs, relType, note: f.Note || '' });
+    }
+    res.json({ deps });
+  } catch (err) {
+    console.error('[/api/dependencies GET]', err);
+    res.status(502).json({ error: 'airtable_read_failed', detail: String(err.message || err) });
+  }
+});
+
 // ---------- static ----------
 app.use(express.static(path.join(__dirname, '..', 'public'), {
   extensions: ['html'],

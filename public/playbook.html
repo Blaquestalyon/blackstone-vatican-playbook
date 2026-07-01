@@ -84,6 +84,7 @@
   .item .stat{width:13px;height:13px;border-radius:50%;border:1.5px solid #cfcfcf;flex:none;margin-top:2px;background:#fff;}
   .item .stat.done{background:var(--done);border-color:var(--done);}
   .item .stat.prog{background:var(--prog);border-color:var(--prog);}
+  .item .stat.blk{background:repeating-linear-gradient(45deg,#e6ebef,#e6ebef 2px,#fff 2px,#fff 4px);border-color:#c8ced4;}
   .item .body{min-width:0;flex:1;}
   .item .id{font-size:10px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:0.2px;}
   .item .id .critdot{color:var(--crit);font-weight:800;}
@@ -96,6 +97,7 @@
   .tag.KATE{background:#111;} .tag.CRIT{background:var(--crit);}
   .tag.GOAL{background:var(--goal);} .tag.STAND{background:#5a7d8c;} .tag.COND{background:#9c7b3f;}
   .tag.PEND{background:#fff;color:var(--faint);border:1px solid var(--line);}
+  .tag.BLK{background:#7a8794;}
 
   .empty{padding:40px 20px;text-align:center;color:var(--faint);font-size:13px;}
 
@@ -133,6 +135,9 @@
   .sbtn.on.todo{background:#6b6b6b;color:#fff;border-color:transparent;}
   .sbtn.on.prog{background:var(--prog);color:#fff;border-color:transparent;}
   .sbtn.on.done{background:var(--done);color:#fff;border-color:transparent;}
+  .sbtn.depblk{border-style:dashed;border-color:var(--crit);color:var(--crit);opacity:.85;position:relative;}
+  .sbtn.depblk::before{content:'⛔';margin-right:4px;font-size:11px;}
+  .sbtn.on.depblk{opacity:1;}
 
   .sec-lab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--p1);margin:0 0 7px;}
   .summary{background:#eef4f7;border:1px solid #d6e4ec;border-radius:10px;padding:13px 16px;margin-bottom:22px;
@@ -265,6 +270,24 @@
   #bvpError{position:fixed;bottom:16px;right:16px;background:#fff;border:1px solid var(--crit);color:var(--crit);
     padding:9px 14px;border-radius:9px;font-size:12px;box-shadow:var(--shadow);display:none;z-index:9998;max-width:360px;}
   #bvpError.show{display:block;}
+  /* Dependency-block modal (visibility-only for enforcing prerequisites) */
+  #bvpModal{position:fixed;inset:0;background:rgba(20,26,34,.5);display:none;align-items:center;justify-content:center;z-index:10000;padding:24px;}
+  #bvpModal.show{display:flex;}
+  #bvpModal .box{background:#fff;border-radius:12px;border:1px solid var(--line);max-width:520px;width:100%;
+    box-shadow:0 12px 40px rgba(0,0,0,.25);padding:22px 24px;font-size:15px;line-height:1.5;}
+  #bvpModal .box h3{margin:0 0 8px;font-size:18px;color:var(--ink);}
+  #bvpModal .box p{margin:0 0 12px;color:var(--muted);font-size:13.5px;}
+  #bvpModal .box ul{margin:8px 0 16px;padding-left:18px;font-size:14px;color:var(--ink);}
+  #bvpModal .box ul li{margin:6px 0;}
+  #bvpModal .box .relbadge{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;
+    background:#f2f6f8;color:var(--p1);margin-left:6px;letter-spacing:.3px;}
+  #bvpModal .box .predstat{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;
+    background:#fff5df;color:#7a5b13;margin-left:6px;letter-spacing:.3px;}
+  #bvpModal .box .predstat.prog{background:#fff5df;color:#7a5b13;}
+  #bvpModal .box .predstat.done{background:#e6f2ec;color:var(--done);}
+  #bvpModal .box .predstat.blk{background:#fbeaea;color:var(--crit);}
+  #bvpModal .box .row{display:flex;justify-content:flex-end;gap:8px;margin-top:6px;}
+  #bvpModal .box .btn{font-size:13px;}
   .sync-pill{display:inline-block;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:99px;
     background:#eef4f7;color:var(--p1);margin-left:8px;vertical-align:middle;letter-spacing:0.3px;}
   .updated-by{font-size:10.5px;color:var(--muted);margin-left:8px;font-style:italic;}
@@ -276,6 +299,14 @@
 <body>
 <div id="bvpLoader"><span class="sp"></span>Loading team playbook…</div>
 <div id="bvpError" role="alert"></div>
+<div id="bvpModal" role="dialog" aria-modal="true" aria-labelledby="bvpModalTitle">
+  <div class="box">
+    <h3 id="bvpModalTitle">This task is blocked by unmet prerequisites</h3>
+    <p id="bvpModalIntro"></p>
+    <ul id="bvpModalList"></ul>
+    <div class="row"><button class="btn" id="bvpModalClose">OK</button></div>
+  </div>
+</div>
 <header>
   <div class="htop">
     <h1 id="hTitle">Vatican Allocation Playbook</h1>
@@ -355,6 +386,65 @@ let DB = { meta:{}, tasks:[] };
 let STATE = {};              // wbs -> {status,notes,updatedBy,updatedAt}
 let CURRENT_USER = null;
 
+/* ---------- dependency graph (from Airtable Dependencies table) ----------
+   DEPS         : array of raw edges { wbs, predWbs, relType, note }
+   PREDS_OF[id] : predecessor edges for task id (edges where wbs===id)
+   FS = Finish-to-Start   : pred must be DONE before this can be IN PROGRESS or DONE
+   SS = Start-to-Start    : pred must be IN PROGRESS (or DONE) before this can be IN PROGRESS or DONE
+   FF = Finish-to-Finish  : pred must be DONE before this can be DONE
+   SF = Start-to-Finish   : pred must be IN PROGRESS (or DONE) before this can be DONE
+=============================================================================== */
+let DEPS = [];
+let PREDS_OF = {};
+function rebuildDepIndex(){
+  PREDS_OF = {};
+  for(const e of DEPS){
+    if(!e || !e.wbs || !e.predWbs) continue;
+    (PREDS_OF[e.wbs] = PREDS_OF[e.wbs] || []).push(e);
+  }
+}
+function rawStatus(id){ return (STATE[id] && STATE[id].status) || ''; }
+// Returns array of unmet-prerequisite objects if this task CANNOT move to targetStatus
+// (targetStatus ∈ 'prog' | 'done'). Empty array means the transition is allowed.
+function getUnmetPrereqs(id, targetStatus){
+  const edges = PREDS_OF[id] || [];
+  if(!edges.length) return [];
+  const unmet = [];
+  for(const e of edges){
+    const ps = rawStatus(e.predWbs);
+    const predDone = (ps === 'done');
+    const predStarted = (ps === 'prog' || ps === 'done');
+    let ok = true;
+    if(targetStatus === 'prog'){
+      // FS: pred must be done. SS: pred must be started. FF/SF: no constraint on entering 'prog'.
+      if(e.relType === 'FS') ok = predDone;
+      else if(e.relType === 'SS') ok = predStarted;
+    } else if(targetStatus === 'done'){
+      // FS: pred done. SS: pred started. FF: pred done. SF: pred started.
+      if(e.relType === 'FS' || e.relType === 'FF') ok = predDone;
+      else if(e.relType === 'SS' || e.relType === 'SF') ok = predStarted;
+    }
+    if(!ok) unmet.push({ ...e, predStatus: ps });
+  }
+  return unmet;
+}
+// Effective (displayed) status for a task with no explicit STATE row.
+// Rule: default is 'to do' iff (today >= startDate) OR (all FS/SS predecessors are satisfied for entering 'prog').
+// Otherwise the task is 'blocked' — a visibility-only placeholder that isn't written to Airtable.
+function todayISO(){
+  const d = new Date(); const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+dd;
+}
+function effectiveStatus(t){
+  const explicit = rawStatus(t.wbs);
+  if(explicit) return explicit;
+  const today = todayISO();
+  const started = t.startDate && today >= t.startDate;
+  const gatingUnmet = getUnmetPrereqs(t.wbs, 'prog'); // FS/SS gates for entering progress
+  if(started || gatingUnmet.length === 0) return 'todo';
+  return 'blk'; // blocked — no explicit row written; recomputes as preds finish or date arrives
+}
+
 /* ---------- API helpers ---------- */
 async function api(path, opts={}){
   const res = await fetch(path, {
@@ -379,12 +469,56 @@ function taskState(id){ return STATE[id] || {status:"", notes:"", updatedBy:"", 
 async function setStatus(id,s){
   const cur = taskState(id).status;
   const next = (cur === s ? "" : s);
+  // Dependency gating: block transitions into 'prog' or 'done' if prerequisites are unmet.
+  // Clearing status (next === '') and going back to 'todo' are always allowed — they never reduce
+  // the safety of the plan.
+  if(next === 'prog' || next === 'done'){
+    const unmet = getUnmetPrereqs(id, next);
+    if(unmet.length){
+      showDepBlockModal(id, next, unmet);
+      return false;
+    }
+  }
   STATE[id] = { ...taskState(id), status: next };
   try{
     const r = await api('/api/state/'+encodeURIComponent(id), { method:'PATCH', body: JSON.stringify({status: next}) });
     STATE[id] = { status:r.status, notes:r.notes, updatedBy:r.updatedBy, updatedAt:r.updatedAt };
   }catch(e){ showError('Could not save status: '+e.message); }
+  return true;
 }
+/* ---------- dependency-block modal ---------- */
+function relLabel(rt){
+  return ({FS:'Finish\u2192Start', SS:'Start\u2192Start', FF:'Finish\u2192Finish', SF:'Start\u2192Finish'})[rt] || rt;
+}
+function predStatusLabel(ps){
+  if(ps === 'done') return { text:'done',        cls:'done' };
+  if(ps === 'prog') return { text:'in progress', cls:'prog' };
+  return                    { text:'not started', cls:'blk'  };
+}
+function showDepBlockModal(id, target, unmet){
+  const targetName = target === 'done' ? 'Done' : 'In progress';
+  const t = DB.tasks.find(x=>x.wbs===id);
+  const intro = 'You tried to mark ' + esc(id) + (t?' (“'+esc(t.task)+'”)':'') +
+    ' as <b>' + targetName + '</b>, but the following predecessor tasks have not satisfied their dependency yet. ' +
+    'Please update the predecessor(s) first, or edit the Dependencies table in Airtable if this constraint is wrong.';
+  document.getElementById('bvpModalIntro').innerHTML = intro;
+  const ul = document.getElementById('bvpModalList');
+  ul.innerHTML = unmet.map(e=>{
+    const pt = DB.tasks.find(x=>x.wbs===e.predWbs);
+    const label = pt ? esc(pt.wbs)+' · '+esc(pt.task) : esc(e.predWbs);
+    const psl = predStatusLabel(e.predStatus);
+    const link = pt ? ' <a href="#'+esc(e.predWbs)+'" onclick="document.getElementById(\'bvpModal\').classList.remove(\'show\')">open ↗</a>' : '';
+    const need = target === 'done'
+      ? (e.relType === 'SS' || e.relType === 'SF' ? 'must be in progress or done' : 'must be done')
+      : (e.relType === 'FS' ? 'must be done' : 'must be in progress or done');
+    const noteBit = e.note ? ' <span class="predstat">'+esc(e.note)+'</span>' : '';
+    return '<li>'+label+' <span class="relbadge">'+relLabel(e.relType)+'</span> '
+         + '<span class="predstat '+psl.cls+'">'+psl.text+'</span> — '
+         + '<span style="color:var(--muted)">'+need+'</span>'+noteBit+link+'</li>';
+  }).join('');
+  document.getElementById('bvpModal').classList.add('show');
+}
+document.addEventListener('DOMContentLoaded', ()=>{}); // keep body-level listeners below intact
 let notesTimer=null;
 function queueSetNotes(id,n){
   STATE[id] = { ...taskState(id), notes: n };
@@ -456,7 +590,7 @@ function passes(t){
   if(F.crit && !t.critical) return false;
   if(F.kate && t.ownership!=="Fund/Kate only") return false;
   if(F.tags.size && !F.tags.has(tagOf(t))) return false;
-  if(F.status.size){ const s=taskState(t.wbs).status||"todo"; if(!F.status.has(s)) return false; }
+  if(F.status.size){ const s=effectiveStatus(t); if(!F.status.has(s)) return false; }
   if(F.q){ const q=F.q.toLowerCase();
     const hay=(t.wbs+" "+t.task+" "+(t.parent||"")+" "+(t.gate||"")+" "+(t.summary||"")+" "+(t.directive||"")).toLowerCase();
     if(hay.indexOf(q)<0) return false; }
@@ -480,8 +614,8 @@ function buildList(){
       html+='<div class="wshead'+col+'" data-ws="'+wsKey+'"><span class="caret">▸</span>WS '+esc(t.ws)+' · '+esc(t.parent||"")+'<span class="cnt">'+cnt+'</span></div>';
     }
     if(collapsed[wsKey]) return;
-    const st=taskState(t.wbs).status;
-    const stc=st==="done"?" done":st==="prog"?" prog":"";
+    const st=effectiveStatus(t);
+    const stc=st==="done"?" done":st==="prog"?" prog":st==="blk"?" blk":"";
     const tg=tagOf(t);
     let tags="";
     if(t.critical) tags+='<span class="tag CRIT">CRIT</span>';
@@ -489,6 +623,7 @@ function buildList(){
     if(t.cpclass==="conditional") tags+='<span class="tag COND">COND</span>';
     if(tg!=="DELEG") tags+='<span class="tag '+tg+'">'+tg+'</span>';
     else if(t.ownership==="Fund/Kate only") tags+='<span class="tag KATE">KATE</span>';
+    if(st==="blk") tags+='<span class="tag BLK" title="Blocked by unmet dependencies">BLOCKED</span>';
     if(!t.directive) tags+='<span class="tag PEND">PENDING</span>';
     const sel = (CURRENT===t.wbs)?" sel":"";
     html+='<div class="item'+sel+'" data-id="'+t.wbs+'">'
@@ -539,6 +674,7 @@ function selectTask(id, push){
       + sbtn(t.wbs,"todo","To do",st.status)
       + sbtn(t.wbs,"prog","In progress",st.status)
       + sbtn(t.wbs,"done","Done",st.status)
+      + depHintPill(t)
       + updatedByLine
     + '</div>'
     + '<div class="sec-lab">Guideline summary</div>'
@@ -566,7 +702,26 @@ function selectTask(id, push){
   markSel();
 }
 function cell(k,v){ return '<div class="cell"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
-function sbtn(id,val,lbl,cur){ return '<button class="sbtn '+val+(cur===val?" on":"")+'" data-id="'+id+'" data-st="'+val+'">'+lbl+'</button>'; }
+function sbtn(id,val,lbl,cur){
+  // Buttons remain clickable so the user sees the block explanation via the modal.
+  // We annotate them with data-blocked so hover shows an unmet-count when applicable.
+  let blockedCount = 0;
+  if(val === 'prog' || val === 'done'){ blockedCount = getUnmetPrereqs(id, val).length; }
+  const cls = 'sbtn '+val+(cur===val?' on':'')+(blockedCount?' depblk':'');
+  const title = blockedCount ? ' title="Blocked by '+blockedCount+' unmet prerequisite'+(blockedCount>1?'s':'')+'"' : '';
+  return '<button class="'+cls+'" data-id="'+id+'" data-st="'+val+'"'+title+'>'+lbl+'</button>';
+}
+function depHintPill(t){
+  const eff = effectiveStatus(t);
+  if(eff === 'blk'){
+    const unmet = getUnmetPrereqs(t.wbs, 'prog');
+    const n = unmet.length;
+    return '<span class="sync-pill" style="background:#fbeaea;color:var(--crit);cursor:pointer" '
+         + 'onclick="showDepBlockModal(\''+t.wbs+'\',\'prog\','+JSON.stringify(unmet).replace(/"/g,'&quot;')+')">'
+         + 'BLOCKED · '+n+' unmet</span>';
+  }
+  return '';
+}
 
 function refreshAfterStatus(){
   const st=taskState(CURRENT).status;
@@ -575,6 +730,33 @@ function refreshAfterStatus(){
 }
 function markSel(){
   listpane.querySelectorAll(".item").forEach(el=>el.classList.toggle("sel", el.dataset.id===CURRENT));
+  // Track the current task in the left list: if the selected task lives in a collapsed
+  // workstream, expand it; then scroll the item into view. Visibility-only — helps the
+  // user see nearby tasks in the same workstream/phase without hunting for them.
+  ensureVisible(CURRENT);
+}
+function ensureVisible(id){
+  if(!id) return;
+  const task = DB.tasks.find(x=>x.wbs===id);
+  if(!task) return;
+  const wsKey = task.phase+'.'+task.ws;
+  let needsRebuild = false;
+  if(collapsed[wsKey]){ collapsed[wsKey] = false; needsRebuild = true; }
+  // Also drop any active filter that would hide this task, so the user can see it in context.
+  if(!passes(task)){
+    F.q=''; F.phases.clear(); F.tags.clear(); F.status.clear(); F.kate=false; F.crit=false;
+    document.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));
+    const s=document.getElementById('search'); if(s) s.value='';
+    needsRebuild = true;
+  }
+  if(needsRebuild) buildList();
+  const el = listpane.querySelector('.item[data-id="'+id+'"]');
+  if(el){
+    // Re-apply selected class after any rebuild.
+    listpane.querySelectorAll('.item').forEach(x=>x.classList.toggle('sel', x.dataset.id===id));
+    // Center it in the viewport of the list pane.
+    el.scrollIntoView({block:'center', behavior:'smooth'});
+  }
 }
 function navFiltered(dir){
   const rows=DB.tasks.filter(passes);
@@ -588,11 +770,18 @@ function navFiltered(dir){
 /* ---------- progress ---------- */
 function updateProgress(){
   const tot=DB.tasks.length;
-  let done=0,prog=0;
-  DB.tasks.forEach(t=>{ const s=taskState(t.wbs).status; if(s==="done")done++; else if(s==="prog")prog++; });
+  let done=0,prog=0,blk=0;
+  DB.tasks.forEach(t=>{
+    const s = effectiveStatus(t);
+    if(s==="done") done++;
+    else if(s==="prog") prog++;
+    else if(s==="blk") blk++;
+  });
   document.getElementById("pgDone").style.width=(done/tot*100)+"%";
   document.getElementById("pgProg").style.width=(prog/tot*100)+"%";
-  document.getElementById("pgStat").innerHTML="<b>"+done+"</b> done · <b>"+prog+"</b> in progress · <b>"+(tot-done-prog)+"</b> to do · "+tot+" total";
+  const todo = tot - done - prog - blk;
+  const blkBit = blk ? ' · <b>'+blk+'</b> blocked' : '';
+  document.getElementById("pgStat").innerHTML="<b>"+done+"</b> done · <b>"+prog+"</b> in progress · <b>"+todo+"</b> to do"+blkBit+" · "+tot+" total";
 }
 
 /* ---------- print single directive ---------- */
@@ -665,6 +854,18 @@ document.getElementById("btnImport").onclick=()=>document.getElementById("fileIm
 document.getElementById("fileImport").onchange=e=>{ if(e.target.files[0]) doImport(e.target.files[0]); };
 document.getElementById("lnkLogout").onclick=async (e)=>{ e.preventDefault(); await fetch('/api/logout',{method:'POST'}); location.href='/login.html'; };
 
+/* dependency-block modal: close on OK, backdrop click, or Escape */
+document.getElementById('bvpModalClose').onclick = ()=>document.getElementById('bvpModal').classList.remove('show');
+document.getElementById('bvpModal').addEventListener('click', e=>{
+  if(e.target.id === 'bvpModal') e.currentTarget.classList.remove('show');
+});
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    const m = document.getElementById('bvpModal');
+    if(m.classList.contains('show')) m.classList.remove('show');
+  }
+});
+
 /* list + ws-collapse + item click (delegated) */
 listpane.addEventListener("click",e=>{
   const ws=e.target.closest(".wshead"); if(ws){ const k=ws.dataset.ws; collapsed[k]=!collapsed[k]; buildList(); return; }
@@ -684,6 +885,8 @@ async function refreshState(){
   try{
     const j = await api('/api/state');
     STATE = j.state || {};
+    // Refresh dependencies too so team edits to the Dependencies table propagate live.
+    try{ const d = await api('/api/dependencies'); DEPS = d.deps || []; rebuildDepIndex(); }catch(_){}
     buildList(); updateProgress();
     if(CURRENT) selectTask(CURRENT, false);
   }catch(e){ /* silent */ }
@@ -700,6 +903,10 @@ setInterval(refreshState, 20000);
     DB = await api('/api/playbook');
     try{ const stJson = await api('/api/state'); STATE = stJson.state || {}; }
     catch(e){ STATE = {}; showError('Live state unavailable: '+e.message+'. Read-only view.'); }
+    // Dependencies are optional — empty array is a safe default when Airtable/table absent.
+    try{ const depJson = await api('/api/dependencies'); DEPS = depJson.deps || []; }
+    catch(e){ DEPS = []; }
+    rebuildDepIndex();
     document.getElementById("hTitle").textContent = DB.meta.title || 'Blackstone Vatican Playbook';
     document.getElementById("hSub").textContent   = DB.meta.subtitle || '';
     buildList(); updateProgress();

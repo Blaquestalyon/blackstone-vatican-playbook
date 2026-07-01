@@ -1,0 +1,168 @@
+Edge,WBS,PredecessorWBS,RelType,Note,_TaskTitle,_Window,_LikelyPrior_WBS,_LikelyPrior_Title
+,P1.A.1.1,,,,Engage securities counsel; scope SMA program legal form & jurisdiction,wk0-6,,
+,P1.A.1.2,,,,Counsel drafts Investment Management Agreement (IMA) + SMA account terms,wk0-6,P1.A.1.1,Engage securities counsel; scope SMA program legal form & jurisdiction
+,P1.A.1.3,,,,Kate reviews and approves final IMA / structure terms,wk0-6,P1.A.1.2,Counsel drafts Investment Management Agreement (IMA) + SMA account terms
+,P1.A.1.4,,,,Kate executes (signs) the IMA and governing agreements,wk0-6,P1.A.1.3,Kate reviews and approves final IMA / structure terms
+,P1.A.2.1,,,,Prepare account-opening & trading-authorization documents for live SMA,wk15-17,P1.A.1.4,Kate executes (signs) the IMA and governing agreements
+,P1.A.2.2,,,,Configure order-management / trade routing for SMA accounts,wk15-17,P1.A.2.1,Prepare account-opening & trading-authorization documents for live SMA
+,P1.A.2.3,,,,Kate signs trading authorizations / account-control agreements,wk15-17,P1.A.2.2,Configure order-management / trade routing for SMA accounts
+,P1.B.1.1,,,,Kate specifies the values/ethical screening ruleset & exclusion criteria,wk0-8,,
+,P1.B.1.2,,,,Codify her rules into a written screening methodology document,wk0-8,P1.B.1.1,Kate specifies the values/ethical screening ruleset & exclusion criteria
+,P1.B.1.3,,,,Build screening data pipeline / license vendor data feeds,wk0-8,P1.B.1.2,Codify her rules into a written screening methodology document
+,P1.B.1.4,,,,Kate validates & signs off methodology as canonical,wk0-8,P1.B.1.3,Build screening data pipeline / license vendor data feeds
+,P1.B.2.1,,,,Run first quarterly portfolio screen against methodology,wk9-12,P1.B.1.4,Kate validates & signs off methodology as canonical
+,P1.B.2.2,,,,Produce exceptions report & remediation list,wk9-12,P1.B.2.1,Run first quarterly portfolio screen against methodology
+,P1.B.2.3,,,,Kate reviews holdings-level screen output & confirms compliance,wk9-12,P1.B.2.2,Produce exceptions report & remediation list
+,P1.B.3.1,,,,Obtain relevant Catholic-values / IOR benchmark data (Morningstar Indexes),wk9-12,P1.B.2.3,Kate reviews holdings-level screen output & confirms compliance
+,P1.B.3.2,,,,Map portfolio to benchmark; compute tracking & attribution,wk9-12,P1.B.3.1,Obtain relevant Catholic-values / IOR benchmark data (Morningstar Indexes)
+,P1.B.3.3,,,,Kate confirms benchmark selection & reviews relative performance,wk9-12,P1.B.3.2,Map portfolio to benchmark; compute tracking & attribution
+,P1.C.1.1,,,,Draft custodian RFP; shortlist qualified custodians,wk0-10,,
+,P1.C.1.2,,,,Run diligence & fee negotiation with custodian finalists,wk0-10,P1.C.1.1,Draft custodian RFP; shortlist qualified custodians
+,P1.C.1.3,,,,Complete custodian onboarding paperwork & account opening,wk0-10,P1.C.1.2,Run diligence & fee negotiation with custodian finalists
+,P1.C.1.4,,,,Kate signs the custody agreement,wk0-10,P1.C.1.3,Complete custodian onboarding paperwork & account opening
+,P1.C.2.1,,,,Draft administrator RFP; shortlist fund administrators,wk0-15,P1.C.1.4,Kate signs the custody agreement
+,P1.C.2.2,,,,Diligence & negotiate NAV / reporting service terms,wk0-15,P1.C.2.1,Draft administrator RFP; shortlist fund administrators
+,P1.C.2.3,,,,Complete administrator onboarding & data integration,wk0-15,P1.C.2.2,Diligence & negotiate NAV / reporting service terms
+,P1.C.2.4,,,,Kate signs the administration agreement,wk0-15,P1.C.2.3,Complete administrator onboarding & data integration
+,P1.C.3.1,,,,Select audit firm & execute engagement,wk0-16,P1.C.2.4,Kate signs the administration agreement
+,P1.C.3.2,,,,Provide complete accounting records & performance data to auditor,wk0-16,P1.C.3.1,Select audit firm & execute engagement
+,P1.C.3.3,,,,Auditor performs first-period audit fieldwork,wk0-16,P1.C.3.2,Provide complete accounting records & performance data to auditor
+,P1.C.3.4,,,,Kate signs management representation letter & approves audited financials,wk0-16,P1.C.3.3,Auditor performs first-period audit fieldwork
+,P1.C.4.1,,,,Define firm & composites per GIPS standards,wk0-14,P1.C.3.4,Kate signs management representation letter & approves audited financials
+,P1.C.4.2,,,,Compile complete historical performance & account records into GIPS input set,wk0-14,P1.C.4.1,Define firm & composites per GIPS standards
+,P1.C.4.3,,,,Calculate GIPS-compliant composite returns & required statistics,wk0-14,P1.C.4.2,Compile complete historical performance & account records into GIPS input set
+,P1.C.4.4,,,,Draft GIPS policies & procedures manual + compliant presentation,wk0-14,P1.C.4.3,Calculate GIPS-compliant composite returns & required statistics
+,P1.C.4.5,,,,Kate attests completeness of firm records for the composite,wk0-14,P1.C.4.4,Draft GIPS policies & procedures manual + compliant presentation
+,P1.C.5.1,,,,Engage independent GIPS verifier,wk14-26,P1.C.4.5,Kate attests completeness of firm records for the composite
+,P1.C.5.2,,,,Provide verifier record access & respond to verifier queries,wk14-26,P1.C.5.1,Engage independent GIPS verifier
+,P1.C.5.3,,,,Remediate verifier findings,wk14-26,P1.C.5.2,Provide verifier record access & respond to verifier queries
+,P1.C.5.4,,,,Kate signs verification engagement & representation letters,wk14-26,P1.C.5.3,Remediate verifier findings
+,P1.C.5.5,,,,Receive GIPS verification report,wk14-26,P1.C.5.4,Kate signs verification engagement & representation letters
+,P1.D.1.1,,,,Determine registration eligibility / threshold / jurisdiction,wk0-22,,
+,P1.D.1.2,,,,"Draft Form ADV Parts 1, 2A, 2B",wk0-22,P1.D.1.1,Determine registration eligibility / threshold / jurisdiction
+,P1.D.1.3,,,,Build compliance manual & code of ethics,wk0-22,P1.D.1.2,"Draft Form ADV Parts 1, 2A, 2B"
+,P1.D.1.4,,,,Kate attests & files Form ADV via IARD,wk0-22,P1.D.1.3,Build compliance manual & code of ethics
+,P1.D.1.5,,,,Respond to any SEC deficiency comments,wk0-22,P1.D.1.4,Kate attests & files Form ADV via IARD
+,P1.D.2.1,,,,Draft AML/KYC policies & CIP procedures,wk0-10,P1.D.1.5,Respond to any SEC deficiency comments
+,P1.D.2.2,,,,Select KYC / screening vendor & implement,wk0-10,P1.D.2.1,Draft AML/KYC policies & CIP procedures
+,P1.D.2.3,,,,Appoint AML compliance officer & run training,wk0-10,P1.D.2.2,Select KYC / screening vendor & implement
+,P1.D.2.4,,,,Kate approves & signs adoption of the AML/compliance program,wk0-10,P1.D.2.3,Appoint AML compliance officer & run training
+,P1.D.3.1,,,,Determine EU marketing route (AIFMD NPPR / MiFID / reverse solicitation),wk0-8,P1.D.2.4,Kate approves & signs adoption of the AML/compliance program
+,P1.D.3.2,,,,Select target EU member states for registration/notification,wk0-8,P1.D.3.1,Determine EU marketing route (AIFMD NPPR / MiFID / reverse solicitation)
+,P1.D.3.3,,,,Engage EU counsel per selected member state,wk0-39,P1.D.3.2,Select target EU member states for registration/notification
+,P1.D.3.4,,,,Prepare registration/notification dossier for each selected member state,wk0-39,P1.D.3.3,Engage EU counsel per selected member state
+,P1.D.3.5,,,,Kate signs applications & attestations,wk0-39,P1.D.3.4,Prepare registration/notification dossier for each selected member state
+,P1.D.3.6,,,,Track approvals & respond to regulator queries per member state,wk0-39,P1.D.3.5,Kate signs applications & attestations
+,P1.E.1.1,,,,Draft one-page strategy teaser copy,wk4-6,,
+,P1.E.1.2,,,,Design & format the teaser,wk4-6,P1.E.1.1,Draft one-page strategy teaser copy
+,P1.E.2.1,,,,"Assemble full manager package (teaser, DDQ, GIPS-verified track, audited financials, ADV)",wk26-28,P1.E.1.2,Design & format the teaser
+,P1.E.2.2,,,,Compliance review of all marketing claims,wk26-28,P1.E.2.1,"Assemble full manager package (teaser, DDQ, GIPS-verified track, audited financials, ADV)"
+,P1.E.2.3,,,,Kate approves marketing claims & signs off final package,wk26-28,P1.E.2.2,Compliance review of all marketing claims
+,P2.F.1.1,,,,Identify the six target gatekeepers/consultants & their manager-research processes,wk4-12,,
+,P2.F.1.2,,,,"Map each gatekeeper's key contacts, submission portals & timelines",wk4-12,P2.F.1.1,Identify the six target gatekeepers/consultants & their manager-research processes
+,P2.F.1.3,,,,Re-verify current officeholders / research analysts at each,wk4-12,P2.F.1.2,"Map each gatekeeper's key contacts, submission portals & timelines"
+,P2.F.2.1,,,,Contact each of the six gatekeepers to request onboarding / RFI packets,wk8-14,P2.F.1.3,Re-verify current officeholders / research analysts at each
+,P2.F.2.2,,,,Log received packets & catalog each one's requirements,wk8-14,P2.F.2.1,Contact each of the six gatekeepers to request onboarding / RFI packets
+,P2.F.3.1,,,,"Assess fund against each gatekeeper's minimum eligibility criteria (AUM, track-record length, firm tenure, strategy capacity)",wk14-20,P2.F.2.2,Log received packets & catalog each one's requirements
+,P2.F.3.2,,,,Remediate closable gaps; Kate decides go/no-go per gatekeeper,wk14-20,P2.F.3.1,"Assess fund against each gatekeeper's minimum eligibility criteria (AUM, track-record length, firm tenure, strategy capacity)"
+,P2.G.1.1,,,,Draft master DDQ answering standard institutional questions,wk12-24,,
+,P2.G.1.2,,,,"Compile supporting exhibits (bios, policies, track record)",wk12-24,P2.G.1.1,Draft master DDQ answering standard institutional questions
+,P2.G.1.3,,,,Kate reviews & attests DDQ factual accuracy (signs),wk12-24,P2.G.1.2,"Compile supporting exhibits (bios, policies, track record)"
+,P2.G.2.1,,,,Update DDQ performance sections with GIPS-verified numbers,wk26-28,P2.G.1.3,Kate reviews & attests DDQ factual accuracy (signs)
+,P2.G.2.2,,,,Final QA of DDQ against verified record & audited financials,wk26-28,P2.G.2.1,Update DDQ performance sections with GIPS-verified numbers
+,P2.H.1.1,,,,Research CIS decision-makers & warm-intro paths,wk6-28,,
+,P2.H.1.2,,,,Kate secures & holds introductory meetings with CIS,wk6-28,P2.H.1.1,Research CIS decision-makers & warm-intro paths
+,P2.H.1.3,,,,Kate maintains relationship via periodic CIS touchpoints,wk6-28,P2.H.1.2,Kate secures & holds introductory meetings with CIS
+,P2.H.2.1,,,,Assemble CIS-specific submission per their template,wk28-30,P2.H.1.3,Kate maintains relationship via periodic CIS touchpoints
+,P2.H.2.2,,,,Submit complete package to CIS,wk28-30,P2.H.2.1,Assemble CIS-specific submission per their template
+,P2.H.3.1,,,,Respond to CIS ODD / IDD information requests,wk30-66,P2.H.2.2,Submit complete package to CIS
+,P2.H.3.2,,,,Kate attends CIS diligence / PM interview meetings,wk30-66,P2.H.3.1,Respond to CIS ODD / IDD information requests
+,P2.H.3.3,,,,Track CIS roster / approval decision,wk30-66,P2.H.3.2,Kate attends CIS diligence / PM interview meetings
+,P2.I.1.1,,,,Tailor submission package for CBIS,wk28-34,,
+,P2.I.1.2,,,,Submit to CBIS,wk28-34,P2.I.1.1,Tailor submission package for CBIS
+,P2.I.1.3,,,,Tailor submission package for Knights of Columbus (KofC),wk28-34,P2.I.1.2,Submit to CBIS
+,P2.I.1.4,,,,Submit to Knights of Columbus (KofC),wk28-34,P2.I.1.3,Tailor submission package for Knights of Columbus (KofC)
+,P2.I.1.5,,,,Tailor submission package for Mercer,wk28-34,P2.I.1.4,Submit to Knights of Columbus (KofC)
+,P2.I.1.6,,,,Submit to Mercer,wk28-34,P2.I.1.5,Tailor submission package for Mercer
+,P2.I.1.7,,,,Tailor submission package for Morgan Stanley (MS),wk28-34,P2.I.1.6,Submit to Mercer
+,P2.I.1.8,,,,Submit to Morgan Stanley (MS),wk28-34,P2.I.1.7,Tailor submission package for Morgan Stanley (MS)
+,P2.I.1.9,,,,Tailor submission package for Beacon,wk28-34,P2.I.1.8,Submit to Morgan Stanley (MS)
+,P2.I.1.10,,,,Submit to Beacon,wk28-34,P2.I.1.9,Tailor submission package for Beacon
+,P2.I.2.1,,,,Respond to CBIS operational/investment DD requests,wk34-78,P2.I.1.10,Submit to Beacon
+,P2.I.2.2,,,,Respond to Knights of Columbus (KofC) operational/investment DD requests,wk34-78,P2.I.2.1,Respond to CBIS operational/investment DD requests
+,P2.I.2.3,,,,Respond to Mercer operational/investment DD requests,wk34-78,P2.I.2.2,Respond to Knights of Columbus (KofC) operational/investment DD requests
+,P2.I.2.4,,,,Respond to Morgan Stanley (MS) operational/investment DD requests,wk34-78,P2.I.2.3,Respond to Mercer operational/investment DD requests
+,P2.I.2.5,,,,Respond to Beacon operational/investment DD requests,wk34-78,P2.I.2.4,Respond to Morgan Stanley (MS) operational/investment DD requests
+,P2.I.2.6,,,,Kate attends CBIS diligence & PM interview meetings,wk34-78,P2.I.2.5,Respond to Beacon operational/investment DD requests
+,P2.I.2.7,,,,Kate attends Knights of Columbus (KofC) diligence & PM interview meetings,wk34-78,P2.I.2.6,Kate attends CBIS diligence & PM interview meetings
+,P2.I.2.8,,,,Kate attends Mercer diligence & PM interview meetings,wk34-78,P2.I.2.7,Kate attends Knights of Columbus (KofC) diligence & PM interview meetings
+,P2.I.2.9,,,,Kate attends Morgan Stanley (MS) diligence & PM interview meetings,wk34-78,P2.I.2.8,Kate attends Mercer diligence & PM interview meetings
+,P2.I.2.10,,,,Kate attends Beacon diligence & PM interview meetings,wk34-78,P2.I.2.9,Kate attends Morgan Stanley (MS) diligence & PM interview meetings
+,P2.I.3.1,,,,Track CBIS rating/approval decision,wk60-80,P2.I.2.10,Kate attends Beacon diligence & PM interview meetings
+,P2.I.3.2,,,,Track Knights of Columbus (KofC) rating/approval decision,wk60-80,P2.I.3.1,Track CBIS rating/approval decision
+,P2.I.3.3,,,,Track Mercer rating/approval decision,wk60-80,P2.I.3.2,Track Knights of Columbus (KofC) rating/approval decision
+,P2.I.3.4,,,,Track Morgan Stanley (MS) rating/approval decision,wk60-80,P2.I.3.3,Track Mercer rating/approval decision
+,P2.I.3.5,,,,Track Beacon rating/approval decision,wk60-80,P2.I.3.4,Track Morgan Stanley (MS) rating/approval decision
+,P2.I.3.6,,,,Log placements on approved lists / rosters,wk60-80,P2.I.3.5,Track Beacon rating/approval decision
+,P2.J.1.1,,,,Identify which placements can refer into Vatican-adjacent capital,wk66-82,,
+,P2.J.1.2,,,,Kate cultivates placed gatekeepers into active referrers,wk66-82,P2.J.1.1,Identify which placements can refer into Vatican-adjacent capital
+,P3.L.1.1,,,,Map the target Investment Committee & surrounding networks,wk2-10,,
+,P3.L.1.2,,,,Identify current officeholders & re-verify against primary sources,wk2-10,P3.L.1.1,Map the target Investment Committee & surrounding networks
+,P3.L.2.1,,,,Maintain a re-verification cadence for named officeholders through the campaign,wk2-82,P3.L.1.2,Identify current officeholders & re-verify against primary sources
+,P3.M.1.1,,,,Build target list of US Catholic endowment CIOs,wk6-40,,
+,P3.M.1.2,,,,Kate attends conferences / intros to build CIO relationships,wk6-40,P3.M.1.1,Build target list of US Catholic endowment CIOs
+,P3.M.2.1,,,,Identify mutual peer who can warm-intro to Zona,wk20-48,P3.M.1.2,Kate attends conferences / intros to build CIO relationships
+,P3.M.2.2,,,,Kate secures & holds warm-intro meeting with Zona,wk20-48,P3.M.2.1,Identify mutual peer who can warm-intro to Zona
+,P3.M.3.1,,,,Kate deepens Zona / CIO relationships to referral readiness,wk40-70,P3.M.2.2,Kate secures & holds warm-intro meeting with Zona
+,P3.N.1.1,,,,Map Casey network and connection paths,wk26-60,,
+,P3.N.1.2,,,,Map Gay network and connection paths,wk26-60,P3.N.1.1,Map Casey network and connection paths
+,P3.N.1.3,,,,Map Harris network and connection paths,wk26-60,P3.N.1.2,Map Gay network and connection paths
+,P3.N.1.4,,,,Kate builds relationships across the Casey network,wk26-60,P3.N.1.3,Map Harris network and connection paths
+,P3.N.1.5,,,,Kate builds relationships across the Gay network,wk26-60,P3.N.1.4,Kate builds relationships across the Casey network
+,P3.N.1.6,,,,Kate builds relationships across the Harris network,wk26-60,P3.N.1.5,Kate builds relationships across the Gay network
+,P3.N.2.1,,,,Identify EU committee members reachable via these networks,wk50-78,P3.N.1.6,Kate builds relationships across the Harris network
+,P3.N.2.2,,,,Kate secures warm intros to EU members,wk50-78,P3.N.2.1,Identify EU committee members reachable via these networks
+,P3.O.1.1,,,,Kate converts first mature IC relationship into an active referrer,wk70-82,,
+,P4.P.1.1,,,,Monitor EU / Vatican implementing statutes & publications on a standing basis,wk2-82,,
+,P4.P.2.1,,,,Identify EU banks with Vatican / Catholic institutional adjacency,wk4-16,P4.P.1.1,Monitor EU / Vatican implementing statutes & publications on a standing basis
+,P4.P.2.2,,,,Profile each bank for external-manager channel fit,wk4-16,P4.P.2.1,Identify EU banks with Vatican / Catholic institutional adjacency
+,P4.Q.1.1,,,,Map Edmond de Rothschild (EdR) external-manager decision-makers,wk8-40,,
+,P4.Q.1.2,,,,Kate builds EdR relationship through meetings,wk8-40,P4.Q.1.1,Map Edmond de Rothschild (EdR) external-manager decision-makers
+,P4.Q.2.1,,,,Prepare EdR external-manager application package,wk39-43,P4.Q.1.2,Kate builds EdR relationship through meetings
+,P4.Q.2.2,,,,Kate signs & submits the EdR application,wk39-43,P4.Q.2.1,Prepare EdR external-manager application package
+,P4.Q.3.1,,,,Respond to EdR diligence requests,wk43-70,P4.Q.2.2,Kate signs & submits the EdR application
+,P4.Q.3.2,,,,Kate attends EdR diligence meetings,wk43-70,P4.Q.3.1,Respond to EdR diligence requests
+,P4.R.1.1,,,,Prepare a tailored application for each identified Catholic-book EU bank,wk40-48,,
+,P4.R.1.2,,,,Kate signs & submits each application,wk40-48,P4.R.1.1,Prepare a tailored application for each identified Catholic-book EU bank
+,P4.R.2.1,,,,Respond to each bank's diligence requests,wk48-82,P4.R.1.2,Kate signs & submits each application
+,P4.R.2.2,,,,Kate attends bank diligence meetings & secures listings,wk48-82,P4.R.2.1,Respond to each bank's diligence requests
+,P4.S.1.1,,,,Formalize approved channel terms with the intermediary,wk70-82,,
+,P4.S.1.2,,,,Kate establishes the IOR bridge relationship via the channel,wk70-82,P4.S.1.1,Formalize approved channel terms with the intermediary
+,P5.T.1.1,,,,Research the Vatican IC mandate framework & award criteria,wk30-48,,
+,P5.T.1.2,,,,Map required proposal components,wk30-48,P5.T.1.1,Research the Vatican IC mandate framework & award criteria
+,P5.T.1.3,,,,Assess fund against Vatican IC minimum eligibility / award criteria; produce gap-and-remediation list,wk44-50,P5.T.1.2,Map required proposal components
+,P5.T.1.4,,,,Kate decides go/no-go on Vatican submission,wk44-50,P5.T.1.3,Assess fund against Vatican IC minimum eligibility / award criteria; produce gap-and-remediation list
+,P5.T.2.1,,,,Draft the Vatican-facing mandate proposal,wk30-44,P5.T.1.4,Kate decides go/no-go on Vatican submission
+,P5.T.2.2,,,,Assemble full Phase-1 documentation set as exhibits,wk30-44,P5.T.2.1,Draft the Vatican-facing mandate proposal
+,P5.T.2.3,,,,Kate reviews & signs the proposal,wk30-44,P5.T.2.2,Assemble full Phase-1 documentation set as exhibits
+,P5.T.3.1,,,,Tailor proposal variant for Boscia,wk44-52,P5.T.2.3,Kate reviews & signs the proposal
+,P5.T.3.2,,,,Tailor proposal variant for the IC,wk44-52,P5.T.3.1,Tailor proposal variant for Boscia
+,P5.T.3.3,,,,Tailor proposal variant for APSA,wk44-52,P5.T.3.2,Tailor proposal variant for the IC
+,P5.U.1.1,,,,Maintain officeholder re-verification & outreach cadence through allocation,wk60-110,,
+,P5.U.2.1,,,,Confirm current implementing-statutes status,wk60-72,P5.U.1.1,Maintain officeholder re-verification & outreach cadence through allocation
+,P5.U.2.2,,,,Kate decides direct-vs-channel routing,wk60-72,P5.U.2.1,Confirm current implementing-statutes status
+,P5.V.1.1,,,,Kate delivers proposal via CIS referral to Boscia / IOR,wk66-72,,
+,P5.V.2.1,,,,Kate reinforces proposal to Boscia through the Zona referral thread,wk70-80,P5.V.1.1,Kate delivers proposal via CIS referral to Boscia / IOR
+,P5.V.2.2,,,,Kate reinforces proposal to Boscia through the EdR channel,wk70-80,P5.V.2.1,Kate reinforces proposal to Boscia through the Zona referral thread
+,P5.V.3.1,,,,Kate engages APSA contact Gasperini (re-verify name before outreach),wk76-90,P5.V.2.2,Kate reinforces proposal to Boscia through the EdR channel
+,P5.V.3.2,,,,Kate engages APSA contact Piccinotti (re-verify name before outreach),wk76-90,P5.V.3.1,Kate engages APSA contact Gasperini (re-verify name before outreach)
+,P5.W.1.1,,,,Respond to Vatican IC evaluation / information requests,wk72-100,,
+,P5.W.1.2,,,,Kate attends evaluation meetings & IC review,wk72-100,P5.W.1.1,Respond to Vatican IC evaluation / information requests
+,P5.W.2.1,,,,Prepare interim allocation via the Phase-4 channel,wk80-100,P5.W.1.2,Kate attends evaluation meetings & IC review
+,P5.W.2.2,,,,Kate signs interim allocation agreement (if invoked),wk80-100,P5.W.2.1,Prepare interim allocation via the Phase-4 channel
+,P5.W.3.1,,,,Negotiate final mandate terms,wk96-108,P5.W.2.2,Kate signs interim allocation agreement (if invoked)
+,P5.W.3.2,,,,Kate makes final mandate-terms decision,wk96-108,P5.W.3.1,Negotiate final mandate terms
+,P5.W.3.3,,,,Counsel reviews final mandate documents,wk106-108,P5.W.3.2,Kate makes final mandate-terms decision
+,P5.W.3.4,,,,Kate signs / executes the allocation mandate,wk108-110,P5.W.3.3,Counsel reviews final mandate documents
+,P5.W.4.1,,,,Open/activate the Vatican account & fund the mandate (custody/admin already built in Phase 1),wk110-114,P5.W.3.4,Kate signs / executes the allocation mandate
+,P5.W.4.2,,,,Confirm capital received; strike first NAV; mandate live,wk113-115,P5.W.4.1,Open/activate the Vatican account & fund the mandate (custody/admin already built in Phase 1)

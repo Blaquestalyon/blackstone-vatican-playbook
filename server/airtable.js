@@ -13,10 +13,11 @@ const API = 'https://api.airtable.com/v0';
 function cfg() {
   const token   = process.env.AIRTABLE_TOKEN;
   const baseId  = process.env.AIRTABLE_BASE_ID;
-  const state   = process.env.AIRTABLE_TASK_STATE_TABLE || 'TaskState';
-  const audit   = process.env.AIRTABLE_AUDIT_LOG_TABLE  || 'AuditLog';
+  const state   = process.env.AIRTABLE_TASK_STATE_TABLE   || 'TaskState';
+  const audit   = process.env.AIRTABLE_AUDIT_LOG_TABLE    || 'AuditLog';
+  const deps    = process.env.AIRTABLE_DEPENDENCIES_TABLE || 'Dependencies';
   if (!token || !baseId) throw new Error('Airtable not configured (AIRTABLE_TOKEN / AIRTABLE_BASE_ID)');
-  return { token, baseId, state, audit };
+  return { token, baseId, state, audit, deps };
 }
 
 async function airtableFetch(pathPart, opts = {}) {
@@ -81,4 +82,27 @@ async function appendAudit(fields) {
   });
 }
 
-module.exports = { listTaskState, upsertTaskState, appendAudit };
+async function listDependencies() {
+  const { baseId, deps } = cfg();
+  const table = encodeURIComponent(deps);
+  const rows = [];
+  let offset;
+  try{
+    do {
+      const qs = new URLSearchParams({ pageSize: '100' });
+      if (offset) qs.set('offset', offset);
+      const data = await airtableFetch(`/${baseId}/${table}?${qs.toString()}`);
+      rows.push(...(data.records || []));
+      offset = data.offset;
+    } while (offset);
+  }catch(e){
+    // Dependencies table is optional — if it doesn't exist yet, return empty.
+    if(String(e.message).includes('404') || String(e.message).includes('NOT_FOUND') || String(e.message).includes('Could not find')){
+      return [];
+    }
+    throw e;
+  }
+  return rows;
+}
+
+module.exports = { listTaskState, upsertTaskState, appendAudit, listDependencies };
