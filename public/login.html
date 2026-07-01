@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blackstone Vatican Playbook — Sign in</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --faint:#9a9a9a; --line:#e2e2e2;
+    --bg:#ffffff; --panel:#fafafa; --p1:#2f6f8f; --crit:#b23b3b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:linear-gradient(180deg,#f4f6f8 0%, #e9edf1 100%);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 40px rgba(0,0,0,.06);
+    padding:32px 34px;width:100%;max-width:420px;}
+  .brand{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--p1);margin-bottom:8px;}
+  h1{margin:0 0 6px;font-size:22px;letter-spacing:-0.3px;}
+  .sub{color:var(--muted);font-size:12.5px;margin:0 0 22px;line-height:1.5;}
+  label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--faint);margin:14px 0 6px;}
+  input{width:100%;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);}
+  input:focus{outline:none;border-color:var(--p1);}
+  .btn{margin-top:20px;width:100%;font-size:13px;font-weight:700;padding:11px;border-radius:9px;
+    background:var(--p1);color:#fff;border:none;cursor:pointer;letter-spacing:0.3px;}
+  .btn:hover{background:#255a74;}
+  .btn:disabled{opacity:.6;cursor:wait;}
+  .err{color:var(--crit);font-size:12px;margin-top:12px;min-height:16px;}
+  .foot{margin-top:22px;font-size:11px;color:var(--faint);line-height:1.5;text-align:center;}
+</style>
+</head>
+<body>
+<form class="card" id="loginForm" autocomplete="on">
+  <div class="brand">Blackstone · Vatican Playbook</div>
+  <h1>Sign in to the team playbook</h1>
+  <p class="sub">Status and notes are shared across the team. Anyone with the shared passcode can update any task. Please enter your name so changes are attributed correctly in the audit log.</p>
+
+  <label for="displayName">Your name</label>
+  <input id="displayName" name="displayName" type="text" required autocomplete="name" placeholder="e.g. Jay Davis">
+
+  <label for="passcode">Team passcode</label>
+  <input id="passcode" name="passcode" type="password" required autocomplete="current-password" placeholder="Shared by your team lead">
+
+  <button class="btn" type="submit" id="btn">Sign in</button>
+  <div class="err" id="err"></div>
+  <div class="foot">167-task WBS · Master clock Jul 1 2026 → Sep 2028</div>
+</form>
+
+<script>
+const form = document.getElementById('loginForm');
+const btn  = document.getElementById('btn');
+const err  = document.getElementById('err');
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  err.textContent = '';
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try{
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        displayName: document.getElementById('displayName').value.trim(),
+        passcode:    document.getElementById('passcode').value
+      })
+    });
+    if(res.ok){
+      location.href = '/playbook.html';
+      return;
+    }
+    if(res.status === 429){ err.textContent = 'Too many attempts. Try again in a few minutes.'; }
+    else if(res.status === 401){ err.textContent = 'Incorrect passcode.'; }
+    else { const j = await res.json().catch(()=>({})); err.textContent = j.error || 'Sign-in failed.'; }
+  }catch(e){
+    err.textContent = 'Network error. Try again.';
+  }finally{
+    btn.disabled = false; btn.textContent = 'Sign in';
+  }
+});
+
+// If already signed in, jump to the playbook.
+fetch('/api/me').then(r=>{ if(r.ok) location.href='/playbook.html'; });
+</script>
+</body>
+</html>

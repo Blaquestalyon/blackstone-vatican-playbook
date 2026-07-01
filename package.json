@@ -1,0 +1,21 @@
+{
+  "name": "blackstone-vatican-playbook",
+  "version": "1.0.0",
+  "description": "Blackstone Vatican Playbook — global, team-synced execution tracker for the 167-task WBS. Backed by Airtable.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
