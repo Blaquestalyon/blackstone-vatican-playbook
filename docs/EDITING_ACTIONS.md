@@ -18,9 +18,14 @@ always revert to a prior version (including the shipped original).
 Open any task in the playbook. Below the **Execution directive** heading you
 will now see:
 
-1. A small **ACTIONS** header row with an **✎ Update actions** button on the
-   right. The header appears whenever the task has an Actions section (whether
-   or not it has been edited).
+1. A small **ACTIONS** header row with a **⎘ Copy** button and an **✎ Update
+   actions** button on the right. The header appears whenever the task has an
+   Actions section (whether or not it has been edited).
+   - **⎘ Copy** puts the *current* Actions text (markdown source, not rendered
+     HTML) on your clipboard so you can paste it into the Airtable form and
+     tweak a few words rather than retyping the whole thing. The button flashes
+     **Copied ✓** for about 1.5 seconds when it succeeds.
+   - **✎ Update actions** opens the Airtable form (see below).
 2. The directive text — with the latest Actions version already spliced in.
 3. If at least one edit has ever been submitted for this task, a small footer
    strip below the directive shows: `Actions updated by <name> · <date> · N
@@ -34,14 +39,17 @@ feature shipped — the shipped Actions are still live, no footer, no history UI
 
 ## Submitting an edit
 
-1. Click **✎ Update actions**. An Airtable form opens in a new browser tab with
+1. **For small edits, hit ⎘ Copy first.** It drops the current Actions markdown
+   into your clipboard so you can paste it into the form and edit a few words
+   rather than retyping everything.
+2. Click **✎ Update actions**. An Airtable form opens in a new browser tab with
    the WBS id, your name (from your sign-in), and the timestamp pre-filled.
-2. Type the new Actions content into the **Actions** field. Formatting is plain
-   text plus Markdown (numbered lists, `**bold**`, links) — same conventions
-   as the shipped directives.
-3. Optionally fill in **Reason for change** so future readers understand the
+3. Paste (or type) the new Actions content into the **Actions** field.
+   Formatting is plain text plus Markdown (numbered lists, `**bold**`, links)
+   — same conventions as the shipped directives.
+4. Optionally fill in **Reason for change** so future readers understand the
    edit context (e.g. "Tightened after Kate's July 1 feedback").
-4. Hit **Submit**. Within ~20 seconds every teammate looking at that task will
+5. Hit **Submit**. Within ~20 seconds every teammate looking at that task will
    see the new version live, along with the footer strip crediting you.
 
 Nothing is ever overwritten — each submission appends a new row in the

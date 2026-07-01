@@ -298,9 +298,14 @@
     margin:18px 0 4px;padding:6px 10px;background:#f8fafb;border:1px solid var(--line);
     border-radius:8px;font-size:12px;color:var(--muted);}
   .actions-head .lbl{font-weight:700;color:var(--ink);letter-spacing:0.3px;text-transform:uppercase;font-size:11px;}
+  .actions-head .actbtn-group{display:flex;align-items:center;gap:6px;}
   .actions-head .actbtn{font-size:12px;padding:4px 10px;background:#fff;border:1px solid var(--line);
-    border-radius:6px;color:var(--p1);cursor:pointer;font-weight:600;}
+    border-radius:6px;color:var(--p1);cursor:pointer;font-weight:600;transition:background 0.15s,color 0.15s,border-color 0.15s;}
   .actions-head .actbtn:hover{background:var(--p1);color:#fff;border-color:var(--p1);}
+  .actions-head .actbtn.copy{color:var(--muted);border-color:var(--line);}
+  .actions-head .actbtn.copy:hover{background:var(--muted);color:#fff;border-color:var(--muted);}
+  .actions-head .actbtn.ok{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
+  .actions-head .actbtn.ok:hover{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
   /* Editable Actions — footer strip (only when at least one edit exists) */
   .actions-foot{margin:6px 0 14px;padding:8px 12px;background:#f2f6f8;border:1px solid #dbe6ec;
     border-radius:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
@@ -799,6 +804,57 @@ function openActionsForm(wbs, fromVersion){
   window.open(url, '_blank', 'noopener');
 }
 
+// Copy the current Actions text (markdown) to the clipboard, with brief visual feedback.
+// Reads the latest edited version if any, else the shipped original.
+function copyCurrentActions(wbs, btnEl){
+  const latest = latestActionsVersion(wbs);
+  let src = '';
+  if(latest && latest.actions){
+    src = latest.actions;
+  }else{
+    const orig = ORIGINAL_ACTIONS[wbs];
+    if(orig && orig.hadHeader && orig.actions){ src = orig.actions; }
+  }
+  if(!src || !src.trim().length){
+    if(btnEl){ btnEl.textContent = 'Nothing to copy'; setTimeout(()=>{ btnEl.textContent = '\u2398 Copy'; }, 1500); }
+    return;
+  }
+  const showOk = ()=>{
+    if(!btnEl) return;
+    const original = btnEl.textContent;
+    btnEl.textContent = 'Copied \u2713';
+    btnEl.classList.add('ok');
+    setTimeout(()=>{ btnEl.textContent = original || '\u2398 Copy'; btnEl.classList.remove('ok'); }, 1500);
+  };
+  const showFail = ()=>{
+    if(!btnEl) return;
+    btnEl.textContent = 'Copy failed';
+    setTimeout(()=>{ btnEl.textContent = '\u2398 Copy'; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(src).then(showOk).catch(()=>{
+      // fallback path
+      try{
+        const ta = document.createElement('textarea');
+        ta.value = src; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        ok ? showOk() : showFail();
+      }catch(e){ showFail(); }
+    });
+  }else{
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = src; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      ok ? showOk() : showFail();
+    }catch(e){ showFail(); }
+  }
+}
+
 // ---------- history drawer ----------
 function openHistoryDrawer(wbs){
   const task = DB.tasks.find(x=>x.wbs===wbs);
@@ -912,8 +968,16 @@ function renderDirectiveHTML(t){
   const updateBtn = ACTIONS_FORM_URL
     ? '<button class="actbtn" onclick="openActionsForm(\'' + wbsAttr + '\', null)">\u270e Update actions</button>'
     : '';
+  // Copy button: only when there's actual Actions text to copy
+  const copySrc = (latest && latest.actions) ? latest.actions : (orig.hadHeader ? (orig.actions || '') : '');
+  const copyBtn = (hasActionsSection && copySrc.trim().length)
+    ? '<button class="actbtn copy" onclick="copyCurrentActions(\'' + wbsAttr + '\', this)" title="Copy current Actions as markdown">\u2398 Copy</button>'
+    : '';
+  const btnGroup = (copyBtn || updateBtn)
+    ? '<div class="actbtn-group">' + copyBtn + updateBtn + '</div>'
+    : '';
   const actionsHead = hasActionsSection
-    ? '<div class="actions-head"><span class="lbl">Actions</span>' + updateBtn + '</div>'
+    ? '<div class="actions-head"><span class="lbl">Actions</span>' + btnGroup + '</div>'
     : '';
   let rendered;
   if(latest){
