@@ -1,0 +1,202 @@
+Edge,WBS,PredecessorWBS,RelType,Note
+P1.A.1.2 <- P1.A.1.1 (SS),P1.A.1.2,P1.A.1.1,SS,governing · counsel engaged
+P1.A.1.3 <- P1.A.1.2 (FF),P1.A.1.3,P1.A.1.2,FF,governing · IMA drafted
+P1.A.1.4 <- P1.A.1.3 (FF),P1.A.1.4,P1.A.1.3,FF,governing · terms approved
+P1.A.2.1 <- P1.C.2.4 (FS),P1.A.2.1,P1.C.2.4,FS,governing · administrator onboarded
+P1.A.2.1 <- P1.A.1.4 (FS),P1.A.2.1,P1.A.1.4,FS,lag 9w · IMA executed
+P1.A.2.2 <- P1.A.2.1 (SS),P1.A.2.2,P1.A.2.1,SS,governing · account docs underway
+P1.A.2.3 <- P1.A.2.2 (FF),P1.A.2.3,P1.A.2.2,FF,governing · OMS configured
+P1.B.1.2 <- P1.B.1.1 (SS),P1.B.1.2,P1.B.1.1,SS,governing · ruleset specified
+P1.B.1.3 <- P1.B.1.1 (SS),P1.B.1.3,P1.B.1.1,SS,governing · ruleset specified
+P1.B.1.4 <- P1.B.1.2 (FF),P1.B.1.4,P1.B.1.2,FF,governing · methodology documented
+P1.B.1.4 <- P1.B.1.3 (FF),P1.B.1.4,P1.B.1.3,FF,pipeline built
+P1.B.2.1 <- P1.B.1.4 (FS),P1.B.2.1,P1.B.1.4,FS,lag 1w · governing · methodology canonical
+P1.B.2.2 <- P1.B.2.1 (SS),P1.B.2.2,P1.B.2.1,SS,governing · screen run
+P1.B.2.3 <- P1.B.2.2 (FF),P1.B.2.3,P1.B.2.2,FF,governing · exceptions produced
+P1.B.3.1 <- P1.B.1.4 (FS),P1.B.3.1,P1.B.1.4,FS,lag 1w · governing · methodology canonical
+P1.B.3.2 <- P1.B.3.1 (SS),P1.B.3.2,P1.B.3.1,SS,governing · benchmark data obtained
+P1.B.3.3 <- P1.B.3.2 (FF),P1.B.3.3,P1.B.3.2,FF,governing · attribution computed
+P1.C.1.2 <- P1.C.1.1 (SS),P1.C.1.2,P1.C.1.1,SS,governing · shortlist ready
+P1.C.1.3 <- P1.C.1.2 (SS),P1.C.1.3,P1.C.1.2,SS,governing · finalist chosen
+P1.C.1.4 <- P1.C.1.3 (FF),P1.C.1.4,P1.C.1.3,FF,governing · onboarding complete
+P1.C.2.2 <- P1.C.2.1 (SS),P1.C.2.2,P1.C.2.1,SS,governing · shortlist ready
+P1.C.2.3 <- P1.C.2.2 (SS),P1.C.2.3,P1.C.2.2,SS,governing · terms negotiated
+P1.C.2.4 <- P1.C.2.3 (FF),P1.C.2.4,P1.C.2.3,FF,governing · onboarding complete
+P1.C.3.2 <- P1.C.3.1 (SS),P1.C.3.2,P1.C.3.1,SS,governing · auditor engaged
+P1.C.3.3 <- P1.C.3.2 (SS),P1.C.3.3,P1.C.3.2,SS,governing · records provided
+P1.C.3.4 <- P1.C.3.3 (FF),P1.C.3.4,P1.C.3.3,FF,governing · fieldwork complete
+P1.C.4.2 <- P1.C.4.1 (SS),P1.C.4.2,P1.C.4.1,SS,governing · composites defined
+P1.C.4.3 <- P1.C.4.2 (SS),P1.C.4.3,P1.C.4.2,SS,governing · records compiled
+P1.C.4.4 <- P1.C.4.3 (SS),P1.C.4.4,P1.C.4.3,SS,governing · returns calculated
+P1.C.4.5 <- P1.C.4.2 (FF),P1.C.4.5,P1.C.4.2,FF,governing · records compiled
+P1.C.4.5 <- P1.C.4.4 (FF),P1.C.4.5,P1.C.4.4,FF,presentation drafted
+P1.C.5.1 <- P1.C.4.5 (FS),P1.C.5.1,P1.C.4.5,FS,governing · GIPS build attested [M8 spine]
+P1.C.5.2 <- P1.C.5.1 (SS),P1.C.5.2,P1.C.5.1,SS,governing · verifier engaged
+P1.C.5.3 <- P1.C.5.2 (SS),P1.C.5.3,P1.C.5.2,SS,governing · queries answered
+P1.C.5.4 <- P1.C.5.3 (FF),P1.C.5.4,P1.C.5.3,FF,governing · findings remediated
+P1.C.5.5 <- P1.C.5.4 (FF),P1.C.5.5,P1.C.5.4,FF,governing · engagement signed
+P1.D.1.2 <- P1.D.1.1 (SS),P1.D.1.2,P1.D.1.1,SS,governing · eligibility determined
+P1.D.1.3 <- P1.D.1.1 (SS),P1.D.1.3,P1.D.1.1,SS,governing · eligibility determined
+P1.D.1.4 <- P1.D.1.2 (FF),P1.D.1.4,P1.D.1.2,FF,governing · ADV drafted
+P1.D.1.4 <- P1.D.1.3 (FF),P1.D.1.4,P1.D.1.3,FF,compliance manual built
+P1.D.1.5 <- P1.D.1.4 (SS),P1.D.1.5,P1.D.1.4,SS,governing · ADV filed
+P1.D.2.2 <- P1.D.2.1 (SS),P1.D.2.2,P1.D.2.1,SS,governing · policies drafted
+P1.D.2.3 <- P1.D.2.1 (SS),P1.D.2.3,P1.D.2.1,SS,governing · policies drafted
+P1.D.2.4 <- P1.D.2.2 (FF),P1.D.2.4,P1.D.2.2,FF,governing · vendor implemented
+P1.D.2.4 <- P1.D.2.3 (FF),P1.D.2.4,P1.D.2.3,FF,officer appointed
+P1.D.3.2 <- P1.D.3.1 (SS),P1.D.3.2,P1.D.3.1,SS,governing · route determined
+P1.D.3.3 <- P1.D.3.2 (FS),P1.D.3.3,P1.D.3.2,FS,governing · member states selected | RECONCILED: start clipped wk0->wk8 (cannot precede state selection); end wk39 held
+P1.D.3.4 <- P1.D.3.3 (SS),P1.D.3.4,P1.D.3.3,SS,governing · per-state counsel engaged | RECONCILED: start clipped wk0->wk8 (cannot precede state selection); end wk39 held
+P1.D.3.5 <- P1.D.3.4 (FF),P1.D.3.5,P1.D.3.4,FF,governing · dossiers prepared
+P1.D.3.6 <- P1.D.3.4 (SS),P1.D.3.6,P1.D.3.4,SS,governing · dossiers filed (rolling) | RECONCILED: start clipped wk0->wk8 (cannot precede state selection); end wk39 held
+P1.E.1.1 <- P1.B.1.1 (SS),P1.E.1.1,P1.B.1.1,SS,lag 4w · governing · strategy defined
+P1.E.1.2 <- P1.E.1.1 (SS),P1.E.1.2,P1.E.1.1,SS,governing · copy drafted
+P1.E.2.1 <- P1.C.5.5 (FS),P1.E.2.1,P1.C.5.5,FS,governing · GIPS report received [M8 spine]
+P1.E.2.1 <- P1.C.3.4 (FS),P1.E.2.1,P1.C.3.4,FS,lag 10w · audited financials
+P1.E.2.1 <- P2.G.1.3 (FS),P1.E.2.1,P2.G.1.3,FS,lag 2w · DDQ attested
+P1.E.2.2 <- P1.E.2.1 (SS),P1.E.2.2,P1.E.2.1,SS,governing · package assembled
+P1.E.2.3 <- P1.E.2.2 (FF),P1.E.2.3,P1.E.2.2,FF,governing · claims reviewed
+P1.E.2.3 <- P1.E.2.1 (FF),P1.E.2.3,P1.E.2.1,FF,package assembled
+P2.F.1.2 <- P2.F.1.1 (SS),P2.F.1.2,P2.F.1.1,SS,governing · gatekeepers identified
+P2.F.1.3 <- P2.F.1.1 (SS),P2.F.1.3,P2.F.1.1,SS,governing · gatekeepers identified
+P2.F.2.1 <- P2.F.1.1 (SS),P2.F.2.1,P2.F.1.1,SS,lag 4w · governing · gatekeepers identified
+P2.F.2.2 <- P2.F.2.1 (SS),P2.F.2.2,P2.F.2.1,SS,governing · packets requested
+P2.F.3.1 <- P2.F.2.2 (FS),P2.F.3.1,P2.F.2.2,FS,governing · requirements cataloged
+P2.F.3.2 <- P2.F.3.1 (FF),P2.F.3.2,P2.F.3.1,FF,governing · eligibility assessed [HARD GATE]
+P2.G.1.1 <- P1.B.1.4 (FS),P2.G.1.1,P1.B.1.4,FS,lag 4w · governing · methodology + policies exist
+P2.G.1.2 <- P2.G.1.1 (SS),P2.G.1.2,P2.G.1.1,SS,governing · DDQ drafted
+P2.G.1.3 <- P2.G.1.1 (FF),P2.G.1.3,P2.G.1.1,FF,governing · DDQ drafted
+P2.G.1.3 <- P2.G.1.2 (FF),P2.G.1.3,P2.G.1.2,FF,exhibits compiled
+P2.G.2.1 <- P2.G.1.3 (FS),P2.G.2.1,P2.G.1.3,FS,lag 2w · DDQ attested
+P2.G.2.1 <- P1.C.5.5 (FS),P2.G.2.1,P1.C.5.5,FS,governing · GIPS-verified numbers
+P2.G.2.2 <- P2.G.2.1 (SS),P2.G.2.2,P2.G.2.1,SS,governing · performance updated
+P2.H.1.2 <- P2.H.1.1 (SS),P2.H.1.2,P2.H.1.1,SS,governing · decision-makers researched
+P2.H.1.3 <- P2.H.1.2 (SS),P2.H.1.3,P2.H.1.2,SS,governing · intro meetings held
+P2.H.2.1 <- P1.E.2.3 (FS),P2.H.2.1,P1.E.2.3,FS,governing · M8 package approved
+P2.H.2.1 <- P2.G.2.2 (FS),P2.H.2.1,P2.G.2.2,FS,DDQ finalized
+P2.H.2.1 <- P2.F.3.2 (FS),P2.H.2.1,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.H.2.1 <- P2.H.1.2 (FS),P2.H.2.1,P2.H.1.2,FS,CIS relationship open
+P2.H.2.2 <- P2.H.2.1 (SS),P2.H.2.2,P2.H.2.1,SS,governing · CIS package assembled
+P2.H.3.1 <- P2.H.2.2 (FS),P2.H.3.1,P2.H.2.2,FS,governing · package submitted
+P2.H.3.2 <- P2.H.2.2 (FS),P2.H.3.2,P2.H.2.2,FS,governing · package submitted
+P2.H.3.3 <- P2.H.3.1 (FF),P2.H.3.3,P2.H.3.1,FF,governing · ODD answered
+P2.H.3.3 <- P2.H.3.2 (FF),P2.H.3.3,P2.H.3.2,FF,interviews held
+P2.I.1.1 <- P1.E.2.3 (FS),P2.I.1.1,P1.E.2.3,FS,governing · M8 package approved
+P2.I.1.1 <- P2.G.2.2 (FS),P2.I.1.1,P2.G.2.2,FS,DDQ finalized
+P2.I.1.1 <- P2.F.3.2 (FS),P2.I.1.1,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.I.1.2 <- P2.I.1.1 (FF),P2.I.1.2,P2.I.1.1,FF,governing · package tailored
+P2.I.1.3 <- P1.E.2.3 (FS),P2.I.1.3,P1.E.2.3,FS,governing · M8 package approved
+P2.I.1.3 <- P2.G.2.2 (FS),P2.I.1.3,P2.G.2.2,FS,DDQ finalized
+P2.I.1.3 <- P2.F.3.2 (FS),P2.I.1.3,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.I.1.4 <- P2.I.1.3 (FF),P2.I.1.4,P2.I.1.3,FF,governing · package tailored
+P2.I.1.5 <- P1.E.2.3 (FS),P2.I.1.5,P1.E.2.3,FS,governing · M8 package approved
+P2.I.1.5 <- P2.G.2.2 (FS),P2.I.1.5,P2.G.2.2,FS,DDQ finalized
+P2.I.1.5 <- P2.F.3.2 (FS),P2.I.1.5,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.I.1.6 <- P2.I.1.5 (FF),P2.I.1.6,P2.I.1.5,FF,governing · package tailored
+P2.I.1.7 <- P1.E.2.3 (FS),P2.I.1.7,P1.E.2.3,FS,governing · M8 package approved
+P2.I.1.7 <- P2.G.2.2 (FS),P2.I.1.7,P2.G.2.2,FS,DDQ finalized
+P2.I.1.7 <- P2.F.3.2 (FS),P2.I.1.7,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.I.1.8 <- P2.I.1.7 (FF),P2.I.1.8,P2.I.1.7,FF,governing · package tailored
+P2.I.1.9 <- P1.E.2.3 (FS),P2.I.1.9,P1.E.2.3,FS,governing · M8 package approved
+P2.I.1.9 <- P2.G.2.2 (FS),P2.I.1.9,P2.G.2.2,FS,DDQ finalized
+P2.I.1.9 <- P2.F.3.2 (FS),P2.I.1.9,P2.F.3.2,FS,lag 8w · eligibility go [gate]
+P2.I.1.10 <- P2.I.1.9 (FF),P2.I.1.10,P2.I.1.9,FF,governing · package tailored
+P2.I.2.1 <- P2.I.1.2 (FS),P2.I.2.1,P2.I.1.2,FS,governing · submitted
+P2.I.2.2 <- P2.I.1.4 (FS),P2.I.2.2,P2.I.1.4,FS,governing · submitted
+P2.I.2.3 <- P2.I.1.6 (FS),P2.I.2.3,P2.I.1.6,FS,governing · submitted
+P2.I.2.4 <- P2.I.1.8 (FS),P2.I.2.4,P2.I.1.8,FS,governing · submitted
+P2.I.2.5 <- P2.I.1.10 (FS),P2.I.2.5,P2.I.1.10,FS,governing · submitted
+P2.I.2.6 <- P2.I.2.1 (SS),P2.I.2.6,P2.I.2.1,SS,governing · diligence underway
+P2.I.2.7 <- P2.I.2.2 (SS),P2.I.2.7,P2.I.2.2,SS,governing · diligence underway
+P2.I.2.8 <- P2.I.2.3 (SS),P2.I.2.8,P2.I.2.3,SS,governing · diligence underway
+P2.I.2.9 <- P2.I.2.4 (SS),P2.I.2.9,P2.I.2.4,SS,governing · diligence underway
+P2.I.2.10 <- P2.I.2.5 (SS),P2.I.2.10,P2.I.2.5,SS,governing · diligence underway
+P2.I.3.1 <- P2.I.2.1 (SS),P2.I.3.1,P2.I.2.1,SS,lag 26w · governing · diligence mature
+P2.I.3.2 <- P2.I.2.2 (SS),P2.I.3.2,P2.I.2.2,SS,lag 26w · governing · diligence mature
+P2.I.3.3 <- P2.I.2.3 (SS),P2.I.3.3,P2.I.2.3,SS,lag 26w · governing · diligence mature
+P2.I.3.4 <- P2.I.2.4 (SS),P2.I.3.4,P2.I.2.4,SS,lag 26w · governing · diligence mature
+P2.I.3.5 <- P2.I.2.5 (SS),P2.I.3.5,P2.I.2.5,SS,lag 26w · governing · diligence mature
+P2.I.3.6 <- P2.I.3.1 (FF),P2.I.3.6,P2.I.3.1,FF,governing · decision tracked
+P2.I.3.6 <- P2.I.3.2 (FF),P2.I.3.6,P2.I.3.2,FF,decision tracked
+P2.I.3.6 <- P2.I.3.3 (FF),P2.I.3.6,P2.I.3.3,FF,decision tracked
+P2.I.3.6 <- P2.I.3.4 (FF),P2.I.3.6,P2.I.3.4,FF,decision tracked
+P2.I.3.6 <- P2.I.3.5 (FF),P2.I.3.6,P2.I.3.5,FF,decision tracked
+P2.J.1.1 <- P2.H.3.3 (FS),P2.J.1.1,P2.H.3.3,FS,governing · CIS roster decision [P2-M5]
+P2.J.1.1 <- P2.I.3.6 (SS),P2.J.1.1,P2.I.3.6,SS,lag 6w · placements logged (rolling)
+P2.J.1.2 <- P2.J.1.1 (SS),P2.J.1.2,P2.J.1.1,SS,governing · referrers identified
+P3.L.1.2 <- P3.L.1.1 (SS),P3.L.1.2,P3.L.1.1,SS,governing · committee mapped
+P3.L.2.1 <- P3.L.1.2 (SS),P3.L.2.1,P3.L.1.2,SS,governing · officeholders identified [STANDING]
+P3.M.1.2 <- P3.M.1.1 (SS),P3.M.1.2,P3.M.1.1,SS,governing · CIO list built
+P3.M.2.1 <- P3.L.1.2 (FS),P3.M.2.1,P3.L.1.2,FS,lag 10w · governing · officeholders identified
+P3.M.2.2 <- P3.M.2.1 (SS),P3.M.2.2,P3.M.2.1,SS,governing · peer identified
+P3.M.3.1 <- P3.M.2.2 (FF),P3.M.3.1,P3.M.2.2,FF,lag 22w · governing · Zona intro held
+P3.M.3.1 <- P3.M.1.2 (FF),P3.M.3.1,P3.M.1.2,FF,lag 30w · CIO relationships built
+P3.N.1.1 <- P3.L.1.1 (FS),P3.N.1.1,P3.L.1.1,FS,lag 16w · governing · committee mapped
+P3.N.1.2 <- P3.L.1.1 (FS),P3.N.1.2,P3.L.1.1,FS,lag 16w · governing · committee mapped
+P3.N.1.3 <- P3.L.1.1 (FS),P3.N.1.3,P3.L.1.1,FS,lag 16w · governing · committee mapped
+P3.N.1.4 <- P3.N.1.1 (SS),P3.N.1.4,P3.N.1.1,SS,governing · Casey mapped
+P3.N.1.5 <- P3.N.1.2 (SS),P3.N.1.5,P3.N.1.2,SS,governing · Gay mapped
+P3.N.1.6 <- P3.N.1.3 (SS),P3.N.1.6,P3.N.1.3,SS,governing · Harris mapped
+P3.N.2.1 <- P3.N.1.4 (SS),P3.N.2.1,P3.N.1.4,SS,lag 24w · governing · networks maturing
+P3.N.2.1 <- P3.N.1.5 (SS),P3.N.2.1,P3.N.1.5,SS,lag 24w · networks maturing
+P3.N.2.1 <- P3.N.1.6 (SS),P3.N.2.1,P3.N.1.6,SS,lag 24w · networks maturing
+P3.N.2.2 <- P3.N.2.1 (SS),P3.N.2.2,P3.N.2.1,SS,governing · EU members identified
+P3.O.1.1 <- P3.M.3.1 (FS),P3.O.1.1,P3.M.3.1,FS,governing · Zona referral-ready [P3-M5]
+P3.O.1.1 <- P3.N.2.2 (SS),P3.O.1.1,P3.N.2.2,SS,lag 20w · EU intros secured
+P4.P.2.2 <- P4.P.2.1 (SS),P4.P.2.2,P4.P.2.1,SS,governing · banks identified
+P4.Q.1.2 <- P4.Q.1.1 (SS),P4.Q.1.2,P4.Q.1.1,SS,governing · EdR decision-makers mapped
+P4.Q.2.1 <- P1.D.3.5 (FS),P4.Q.2.1,P1.D.3.5,FS,governing · EU registration filed [M9]
+P4.Q.2.1 <- P1.E.2.3 (FS),P4.Q.2.1,P1.E.2.3,FS,lag 11w · M8 package
+P4.Q.2.1 <- P4.Q.1.2 (SS),P4.Q.2.1,P4.Q.1.2,SS,lag 31w · EdR relationship built | RECONCILED: FS->SS (relationship-building overlaps app prep; M9 is the binding gate)
+P4.Q.2.2 <- P4.Q.2.1 (FF),P4.Q.2.2,P4.Q.2.1,FF,governing · application prepared
+P4.Q.3.1 <- P4.Q.2.2 (FS),P4.Q.3.1,P4.Q.2.2,FS,governing · application submitted
+P4.Q.3.2 <- P4.Q.2.2 (FS),P4.Q.3.2,P4.Q.2.2,FS,governing · application submitted
+P4.R.1.1 <- P4.P.2.2 (FS),P4.R.1.1,P4.P.2.2,FS,lag 24w · banks profiled
+P4.R.1.1 <- P1.D.3.5 (FS),P4.R.1.1,P1.D.3.5,FS,lag 1w · governing · EU registration [M9]
+P4.R.1.1 <- P1.E.2.3 (FS),P4.R.1.1,P1.E.2.3,FS,lag 12w · M8 package
+P4.R.1.2 <- P4.R.1.1 (FF),P4.R.1.2,P4.R.1.1,FF,governing · applications prepared
+P4.R.2.1 <- P4.R.1.2 (FS),P4.R.2.1,P4.R.1.2,FS,governing · applications submitted
+P4.R.2.2 <- P4.R.1.2 (FS),P4.R.2.2,P4.R.1.2,FS,governing · applications submitted
+P4.S.1.1 <- P4.Q.3.2 (FS),P4.S.1.1,P4.Q.3.2,FS,governing · EdR approved [P4-M4]
+P4.S.1.2 <- P4.S.1.1 (SS),P4.S.1.2,P4.S.1.1,SS,governing · channel terms formalized
+P5.T.1.1 <- P3.L.1.2 (FS),P5.T.1.1,P3.L.1.2,FS,lag 20w · governing · committee/officeholders mapped
+P5.T.1.2 <- P5.T.1.1 (SS),P5.T.1.2,P5.T.1.1,SS,governing · IC framework researched
+P5.T.1.3 <- P5.T.1.1 (SS),P5.T.1.3,P5.T.1.1,SS,lag 14w · governing · award criteria understood [HARD GATE]
+P5.T.1.4 <- P5.T.1.3 (FF),P5.T.1.4,P5.T.1.3,FF,governing · gap list produced
+P5.T.2.1 <- P1.E.2.3 (FS),P5.T.2.1,P1.E.2.3,FS,lag 2w · full P1 docs [M8]
+P5.T.2.1 <- P5.T.1.2 (SS),P5.T.2.1,P5.T.1.2,SS,governing · proposal components mapped
+P5.T.2.2 <- P1.E.2.3 (FS),P5.T.2.2,P1.E.2.3,FS,lag 2w · governing · full P1 docs [M8]
+P5.T.2.3 <- P5.T.2.1 (FF),P5.T.2.3,P5.T.2.1,FF,governing · proposal drafted
+P5.T.2.3 <- P5.T.2.2 (FF),P5.T.2.3,P5.T.2.2,FF,exhibits assembled
+P5.T.3.1 <- P5.T.2.3 (FS),P5.T.3.1,P5.T.2.3,FS,governing · proposal signed
+P5.T.3.2 <- P5.T.2.3 (FS),P5.T.3.2,P5.T.2.3,FS,governing · proposal signed
+P5.T.3.3 <- P5.T.2.3 (FS),P5.T.3.3,P5.T.2.3,FS,governing · proposal signed
+P5.U.1.1 <- P3.L.2.1 (SS),P5.U.1.1,P3.L.2.1,SS,lag 58w · governing · re-verification cadence [STANDING]
+P5.U.2.1 <- P4.P.1.1 (SS),P5.U.2.1,P4.P.1.1,SS,lag 58w · governing · statute monitoring
+P5.U.2.2 <- P5.U.2.1 (FF),P5.U.2.2,P5.U.2.1,FF,governing · statutes confirmed
+P5.V.1.1 <- P2.H.3.3 (FS),P5.V.1.1,P2.H.3.3,FS,governing · CIS roster [P2-M5]
+P5.V.1.1 <- P5.T.3.1 (FS),P5.V.1.1,P5.T.3.1,FS,lag 14w · Boscia variant tailored
+P5.V.1.1 <- P5.T.1.4 (FS),P5.V.1.1,P5.T.1.4,FS,lag 16w · Vatican go/no-go [gate]
+P5.V.1.1 <- P2.J.1.2 (SS),P5.V.1.1,P2.J.1.2,SS,CIS referrer active
+P5.V.2.1 <- P5.V.1.1 (SS),P5.V.2.1,P5.V.1.1,SS,lag 4w · primary delivery underway
+P5.V.2.1 <- P3.O.1.1 (SS),P5.V.2.1,P3.O.1.1,SS,governing · Zona referrer active [P3-M5]
+P5.V.2.2 <- P5.V.1.1 (SS),P5.V.2.2,P5.V.1.1,SS,lag 4w · primary delivery underway
+P5.V.2.2 <- P4.S.1.2 (SS),P5.V.2.2,P4.S.1.2,SS,governing · EdR/IOR channel live [P4-M4]
+P5.V.3.1 <- P5.V.1.1 (FS),P5.V.3.1,P5.V.1.1,FS,lag 4w · governing · proposal delivered
+P5.V.3.1 <- P5.T.3.3 (FS),P5.V.3.1,P5.T.3.3,FS,lag 24w · APSA variant tailored
+P5.V.3.2 <- P5.V.1.1 (FS),P5.V.3.2,P5.V.1.1,FS,lag 4w · governing · proposal delivered
+P5.V.3.2 <- P5.T.3.3 (FS),P5.V.3.2,P5.T.3.3,FS,lag 24w · APSA variant tailored
+P5.W.1.1 <- P5.V.1.1 (FS),P5.W.1.1,P5.V.1.1,FS,governing · proposal delivered
+P5.W.1.2 <- P5.V.1.1 (FS),P5.W.1.2,P5.V.1.1,FS,governing · proposal delivered
+P5.W.2.1 <- P4.S.1.2 (SS),P5.W.2.1,P4.S.1.2,SS,lag 10w · P4 channel live [CONDITIONAL]
+P5.W.2.1 <- P5.U.2.2 (FS),P5.W.2.1,P5.U.2.2,FS,lag 8w · governing · routing decided
+P5.W.2.2 <- P5.W.2.1 (FF),P5.W.2.2,P5.W.2.1,FF,governing · interim prepared [CONDITIONAL]
+P5.W.3.1 <- P5.W.1.1 (SS),P5.W.3.1,P5.W.1.1,SS,lag 24w · governing · IC evaluation concluding
+P5.W.3.1 <- P5.W.1.2 (SS),P5.W.3.1,P5.W.1.2,SS,lag 24w · IC review concluding
+P5.W.3.2 <- P5.W.3.1 (FF),P5.W.3.2,P5.W.3.1,FF,governing · terms negotiated
+P5.W.3.3 <- P5.W.3.1 (SS),P5.W.3.3,P5.W.3.1,SS,lag 10w · governing · terms near-final
+P5.W.3.4 <- P5.W.3.3 (FS),P5.W.3.4,P5.W.3.3,FS,governing · counsel reviewed
+P5.W.3.4 <- P5.W.3.2 (FF),P5.W.3.4,P5.W.3.2,FF,lag 2w · terms decided
+P5.W.4.1 <- P5.W.3.4 (FS),P5.W.4.1,P5.W.3.4,FS,governing · mandate signed [P5-M5 signed]
+P5.W.4.1 <- P1.A.2.3 (FS),P5.W.4.1,P1.A.2.3,FS,lag 93w · SMA account live
+P5.W.4.2 <- P5.W.4.1 (SS),P5.W.4.2,P5.W.4.1,SS,lag 3w · governing · account funded
