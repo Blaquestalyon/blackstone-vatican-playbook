@@ -238,6 +238,9 @@
   .navrow .mid      { font-size: 14px; }
 
   /* (T) TOP TOOLBAR ---------------------------------------------------- */
+  .btn-primary { background: var(--p1); color: #fff; border-color: var(--p1); }
+  .btn-primary:hover { background: #255a74; border-color: #255a74; }
+  a.btn { text-decoration: none; display: inline-block; }
   .grp .lab   { font-size: 12px; letter-spacing: 0.6px; margin-right: 3px; }
   .chip       { font-size: 13px; padding: 6px 12px; }
   .search     { font-size: 14px; padding: 8px 12px; width: 260px; }
@@ -306,6 +309,7 @@
   </div>
   <div class="spacer"></div>
   <span class="counts" id="counts"></span>
+  <a class="btn btn-primary" id="btnGantt" href="/gantt.html" title="Open the interactive Gantt view">Open Gantt ↗</a>
   <button class="btn" id="btnClear">Clear</button>
   <button class="btn" id="btnExport" title="Download the full team status + notes as a JSON snapshot">Export</button>
   <button class="btn" id="btnImport" title="Restore team status + notes from a snapshot (writes to Airtable)">Import</button>
