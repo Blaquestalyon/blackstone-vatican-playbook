@@ -138,6 +138,48 @@
   .own-deleg{background:#eef1f4;color:#516;color:#4a5568;border:1px solid #dfe4ea;}
   .scrim{position:fixed;inset:0;background:rgba(0,0,0,0.12);z-index:40;opacity:0;pointer-events:none;transition:opacity .18s;}
   .scrim.on{opacity:1;pointer-events:auto;}
+
+  /* ============================================================
+     Blackstone Vatican Playbook · Gantt legibility pass
+     Additive-only rules. Bumps every text element below the page
+     header to a more readable size. Visibility-only — no layout
+     or functionality changes.
+     ============================================================ */
+  .sub               { font-size: 14.5px; margin-bottom: 16px; line-height: 1.5; }
+  .grp .lab          { font-size: 12.5px; letter-spacing: 0.5px; margin-right: 4px; }
+  .chip              { font-size: 13.5px; padding: 6px 12px; }
+  .search            { font-size: 14px; padding: 8px 12px; width: 240px; }
+  .counts            { font-size: 14px; }
+  .btnlink           { font-size: 13.5px; padding: 4px 6px; }
+  #pb-open           { font-size: 14.5px; padding: 8px 15px; }
+  #pb-note           { font-size: 13.5px; margin-left: 10px; }
+
+  .axis-spacer       { font-size: 13px; padding: 9px 12px; letter-spacing: 0.5px; }
+  .mtick             { font-size: 12px; padding-top: 6px; }
+  .gatelbl           { font-size: 13px; padding: 8px 12px; letter-spacing: 0.4px; }
+  .gflag             { font-size: 11.5px; width: 72px; line-height: 1.2; }
+  .phlabel           { font-size: 14px; padding: 9px 12px; letter-spacing: 0.4px; }
+  .phlabel .cnt      { font-size: 12.5px; margin-left: 8px; }
+  .pflag             { font-size: 11px; width: 52px; }
+
+  .plabel            { font-size: 14.5px; padding: 8px 8px 8px 12px; gap: 8px; }
+  .caret             { font-size: 12px; width: 14px; }
+  .pmeta             { font-size: 12.5px; padding-left: 8px; }
+  .tlabel            { font-size: 13.5px; padding: 6px 8px 6px 34px; gap: 8px; }
+  .tag               { font-size: 9.5px; padding: 2px 5px; }
+  .tdot              { font-size: 10px; top: 8px; }
+  .legend            { font-size: 14px; gap: 18px; margin-top: 18px; }
+
+  .drawer h3         { font-size: 15px; }
+  .drawer .wbsid     { font-size: 13px; margin-bottom: 16px; }
+  .drawer .tasktext  { font-size: 16px; line-height: 1.4; margin-bottom: 18px; }
+  .drawer .kv        { font-size: 14px; grid-template-columns: 110px 1fr; gap: 8px 12px; margin-bottom: 16px; }
+  .drawer .badge     { font-size: 11px; padding: 2.5px 7px; }
+  .drawer .note      { font-size: 14px; padding: 12px 14px; line-height: 1.5; }
+  .drawer .ownpill   { font-size: 12px; padding: 3px 10px; }
+
+  /* widen the label column so bumped-up deliverable/task names don't clip */
+  .row, .axis, .gaterow, .phrow, .prow, .trow { grid-template-columns: 400px 1fr; }
 </style>
 </head>
 <body>
