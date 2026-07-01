@@ -194,6 +194,55 @@
   ::-webkit-scrollbar-thumb:hover{background:#bdbfc4;background-clip:content-box;}
 </style>
 
+<style id="bvp-legibility">
+  /* --- Blackstone Vatican Playbook · legibility pass ---
+     Additive-only rules that raise font sizes in the three heavy-reading zones:
+     (1) the task list on the left, (2) the task-detail pane on the right,
+     (3) the footer legend + sign-in strip. No functional behavior changes;
+     visibility only, per requirements. ------------------------------------ */
+
+  /* (1) LEFT TASK LIST -------------------------------------------------- */
+  .phhead { font-size: 12px; padding: 9px 12px; }
+  .phhead .cnt { font-size: 11px; }
+  .wshead { font-size: 12px; padding: 7px 12px 7px 16px; }
+  .wshead .cnt { font-size: 11px; }
+  .wshead .caret { font-size: 10px; }
+  .item .id { font-size: 12px; letter-spacing: 0.2px; }
+  .item .nm { font-size: 13.5px; line-height: 1.4; margin-top: 3px; }
+  .item .tag { font-size: 9.5px; padding: 2px 5px; }
+
+  /* (2) RIGHT DETAIL PANE ---------------------------------------------- */
+  .crumb            { font-size: 13px; margin-bottom: 8px; }
+  .d-id             { font-size: 13.5px; padding: 3px 9px; }
+  .pill             { font-size: 11px; padding: 2.5px 8px; }
+  .sync-pill        { font-size: 11px; padding: 2.5px 8px; }
+  h2.d-title        { font-size: 24px; margin: 14px 0 16px; line-height: 1.3; }
+  .metagrid .k      { font-size: 10.5px; }
+  .metagrid .v      { font-size: 14px; margin-top: 4px; }
+  .gate             { font-size: 14px; padding: 10px 14px; }
+  .statusbar .lab   { font-size: 11.5px; }
+  .sbtn             { font-size: 13px; padding: 7px 14px; }
+  .updated-by       { font-size: 12px; }
+  .sec-lab          { font-size: 12px; margin: 0 0 9px; }
+  .summary          { font-size: 15.5px; line-height: 1.6; padding: 14px 18px; }
+  .directive        { font-size: 15.5px; line-height: 1.65; }
+  .directive p      { margin: 0 0 12px; }
+  .directive li     { margin-bottom: 6px; }
+  .directive h3     { font-size: 16px; margin: 24px 0 10px; }
+  .directive h4     { font-size: 13.5px; margin: 20px 0 8px; }
+  .directive blockquote { font-size: 14.5px; padding: 10px 14px; }
+  .directive code   { font-size: 13.5px; }
+  .notes-wrap textarea { font-size: 14px; line-height: 1.55; min-height: 100px; }
+  .navrow .btn      { font-size: 13px; padding: 8px 14px; }
+  .navrow .mid      { font-size: 12.5px; }
+
+  /* (3) FOOTER LEGEND + SIGN-IN STRIP ---------------------------------- */
+  .legend           { font-size: 13px; padding: 10px 14px; gap: 10px; }
+  .legend .sw       { width: 11px; height: 11px; }
+  #whoami           { font-size: 13px; }
+  #lnkExport, #lnkLogout { font-size: 13px; }
+</style>
+
 <style id="bvp-extra">
   /* Blackstone Vatican Playbook — additive visibility-only styles */
   #bvpLoader{position:fixed;inset:0;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;
